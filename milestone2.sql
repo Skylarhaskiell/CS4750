@@ -3826,3 +3826,43 @@ INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `year`) VALUES
 ('uv6wx', 'Uma', 'Haskiell', 3),
 ('yz7ab', 'Yara', 'Tuma', 4)
 ;
+
+INSERT INTO ranks (rankID, studentID) VALUES 
+(1, 'hmt7qvt'), 
+(2, 'smw6ure'), 
+(3, 'seh6fy'),
+(4, 'ab1cd'),
+(5, 'ef2gh'),
+(6, 'ij3kl'),
+(7, 'mbn4op'),
+(8, 'rq5st'),
+(9, 'uv6wx'),
+(10, 'yz7ab')
+;
+
+INSERT INTO rating (rankID, hours_assignment_per_week, overall_rating, hours_studying_per_week, num_assignments) VALUES 
+(1, 10, 8, 20, 5), 
+(2, 5, 7, 15, 3), 
+(3, 15, 9, 30, 6),
+(4, 10, 9, 25, 6),
+(5, 15, 8, 20, 5),
+(6, 8, 7, 20, 4),
+(7, 12, 9, 15, 4),
+(8, 8, 10, 20, 6),
+(9, 15, 8, 25, 3),
+(10, 12, 8, 32, 6)
+
+;
+
+INSERT INTO studentComment (commentID, studentID) VALUES 
+(1, 'hmt7qvt'), 
+(2, 'smw6ure'), 
+(3, 'seh6fy'),
+(4, 'ab1cd'),
+(5, 'ef2gh'),
+(6, 'ij3kl'),
+(7, 'mbn4op'),
+(8, 'rq5st'),
+(9, 'uv6wx'),
+(10, 'yz7ab')
+;
