@@ -3882,3 +3882,43 @@ VALUES (2031, 'CS1010001', 'Fall', 2022, ''),
 (11495, 'CS9999046', 'Spring', 2023, 'Seongkook Heo'),
 (11496, 'CS9999047', 'Spring', 2023, 'Yixin Sun')
 ;
+
+INSERT INTO classCode (classID, classCode) SELECT classID, classCode FROM class;
+INSERT INTO classSemester (classID, semester)
+SELECT classID, semester
+FROM class;
+
+INSERT INTO classYear (classID, year)
+SELECT classID, year
+FROM class;
+
+-- sample data for `comments`
+INSERT INTO `comments` (`commentID`, `studentID`, `date_posted`, `content`) VALUES
+(1, 'hmt7qvt', NOW(), 'I really loved this class!'),
+(2, 'smw6ure', NOW(), "This class was ok."),
+(3, 'seh6fy', NOW(), "Great course!")
+;
+-- sample data for `likes`
+INSERT INTO `likes` (`studentID`, `classID`) VALUES
+('hmt7qvt', 2032),
+('smq6ure', 2032),
+('seh6fy', 11028)
+;
+-- sample data for `login`
+INSERT INTO `login` (`username`, `userPassword`, `studentID`) VALUES
+('hmt', 'password1', 'hmt7qvt'),
+('smw', 'password2', 'smw6ure'),
+('seh', 'password3', 'seh6fy')
+;
+-- sample data for `rankAbout`
+INSERT INTO `rankAbout` (`rankID`, `classID`) VALUES
+(1, 2032),
+(2, 2032),
+(3, 11028)
+;
+-- sample data for `student`
+INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `year`) VALUES
+('hmt7qvt', 'Hannah', 'Tuma', 4),
+('smw6ure', 'Sarah', 'Wimbish', 3),
+('seh6fy', 'Skylar', 'Haskiell', 3)
+;
