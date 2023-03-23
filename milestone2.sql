@@ -3817,7 +3817,7 @@ INSERT INTO `rankAbout` (`rankID`, `classID`) VALUES
 INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `year`) VALUES
 ('hmt7qvt', 'Hannah', 'Tuma', 4),
 ('smw6ure', 'Sarah', 'Wimbish', 3),
-('seh6fy', 'Skylar', 'Haskiell', 3)
+('seh6fy', 'Skylar', 'Haskiell', 3),
 ('ab1cd', 'Abby', 'Tuma', 4),
 ('ef2gh', 'Eric', 'Wimbish', 3),
 ('ij3kl', 'Izzy', 'Haskiell', 3),
