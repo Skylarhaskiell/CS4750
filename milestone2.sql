@@ -3791,13 +3791,13 @@ INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `year`) VALUES
 ('seh6fy', 'Skylar', 'Haskiell', 3)
 ;
 INSERT INTO classComment (commentID, classID)
-VALUES (1, 1001), (2, 1002), (3, 1003);
+VALUES (1, 2032), (2, 2032), (3, 11028);
 
 INSERT INTO ranks (rankID, studentID)
-VALUES (1, 'A123'), (2, 'B456'), (3, 'C789');
+VALUES (1, 'hmt7qvt'), (2, 'smw6ure'), (3, 'seh6fy');
 
 INSERT INTO rating (rankID, hours_assignment_per_week, overall_rating, hours_studying_per_week, num_assignments)
 VALUES (1, 10, 8, 20, 5), (2, 5, 7, 15, 3), (3, 15, 9, 30, 6);
 
 INSERT INTO studentComment (commentID, studentID)
-VALUES (1, 'A123'), (2, 'B456'), (3, 'C789');
+VALUES (1, 'hmt7qvt'), (2, 'smw6ure'), (3, 'seh6fy');
