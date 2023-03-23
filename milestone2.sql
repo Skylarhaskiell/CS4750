@@ -3764,40 +3764,65 @@ FROM class;
 INSERT INTO `comments` (`commentID`, `studentID`, `date_posted`, `content`) VALUES
 (1, 'hmt7qvt', NOW(), 'I really loved this class!'),
 (2, 'smw6ure', NOW(), "This class was ok."),
-(3, 'seh6fy', NOW(), "Great course!")
+(3, 'seh6fy', NOW(), "Love this class!"),
+(4, 'hmt7qvt', NOW(), 'this class and prof were the best!'),
+(5, 'smw6ure', NOW(), "meh."),
+(6, 'hmt7qvt', NOW(), 'I did not like this class'),
+(7, 'smw6ure', NOW(), "This class was ok."),
+(8, 'hmt7qvt', NOW(), 'I really loved this class!!!'),
+(9, 'smw6ure', NOW(), "This class was ok."),
+(10, 'hmt7qvt', NOW(), 'I really loved this class!')
 ;
 -- sample data for `likes`
 INSERT INTO `likes` (`studentID`, `classID`) VALUES
 ('hmt7qvt', 2032),
 ('smq6ure', 2032),
-('seh6fy', 11028)
+('seh6fy', 11028),
+('hmt7qvt', 2033),
+('smq6ure', 2034),
+('seh6fy', 11027),
+('hmt7qvt', 2038),
+('smq6ure', 2036),
+('seh6fy', 11030),
+('hmt7qvt', 2039)
+
 ;
 -- sample data for `login`
 INSERT INTO `login` (`username`, `userPassword`, `studentID`) VALUES
 ('hmt', 'password1', 'hmt7qvt'),
 ('smw', 'password2', 'smw6ure'),
-('seh', 'password3', 'seh6fy')
+('seh', 'password3', 'seh6fy'),
+('new', 'password4', 'ab1cd'),
+('new1', 'password5', 'ef2gh'),
+('new2', 'password6', 'ij3kl'),
+('new3', 'password7', 'mbn4op'),
+('new4', 'password8', 'qr5st'),
+('new5', 'password9', 'uv6wx'),
+('new6', 'password10', 'yz7ab')
 ;
 -- sample data for `rankAbout`
 INSERT INTO `rankAbout` (`rankID`, `classID`) VALUES
 (1, 2032),
 (2, 2032),
-(3, 11028)
+(3, 11028),
+(4, 2033),
+(5, 2034),
+(6, 11027),
+(7, 2038),
+(8, 2036),
+(9, 11030),
+(10, 2039)
 ;
 -- sample data for `student`
 INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `year`) VALUES
 ('hmt7qvt', 'Hannah', 'Tuma', 4),
 ('smw6ure', 'Sarah', 'Wimbish', 3),
 ('seh6fy', 'Skylar', 'Haskiell', 3)
+('ab1cd', 'Abby', 'Tuma', 4),
+('ef2gh', 'Eric', 'Wimbish', 3),
+('ij3kl', 'Izzy', 'Haskiell', 3),
+('mbn4op', 'Molly', 'Tuma', 4),
+('rq5st', 'Riley', 'Wimbish', 3),
+('uv6wx', 'Uma', 'Haskiell', 3),
+('yz7ab', 'Yara', 'Tuma', 4)
 ;
-INSERT INTO classComment (commentID, classID)
-VALUES (1, 2032), (2, 2032), (3, 11028);
-
-INSERT INTO ranks (rankID, studentID)
-VALUES (1, 'hmt7qvt'), (2, 'smw6ure'), (3, 'seh6fy');
-
-INSERT INTO rating (rankID, hours_assignment_per_week, overall_rating, hours_studying_per_week, num_assignments)
-VALUES (1, 10, 8, 20, 5), (2, 5, 7, 15, 3), (3, 15, 9, 30, 6);
-
-INSERT INTO studentComment (commentID, studentID)
-VALUES (1, 'hmt7qvt'), (2, 'smw6ure'), (3, 'seh6fy');
