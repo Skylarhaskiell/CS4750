@@ -43,4 +43,25 @@ function deleteComment($commentID)
     $statement->execute(); 
     $statement->closeCursor();
 }
+function selectAllClasses()
+{
+    global $db;
+    $query = "SELECT * FROM class";
+    $statement = $db->prepare($query);
+    $statement->execute(); 
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+function selectCommentsByUser($userID)
+{
+    global $db;
+    $query = "SELECT * FROM comments WHERE studentID = :userID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->execute(); 
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
 ?>

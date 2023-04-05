@@ -1,5 +1,5 @@
-Hi <?php echo $_POST['name']; ?> 
+Hi <?php echo $_POST['studentID']; ?> 
 You entered <br/> 
 <?php
-echo "Major:" . $_POST['major'] . " and Year: " . $_POST['year'];   
+echo "Class:" . $_POST['classID'] . " and Comment: " . $_POST['content'];   
 ?>   
