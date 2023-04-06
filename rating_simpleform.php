@@ -6,8 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Rating")) 
   {
-    addRating($_POST['computingID'], $_POST['course'], $_POST['overall_rating'], $_POST['hours_per_week_assignments'], $_POST['hours_per_week_study'], $_POST['num_assignments']);
-    echo "<p> please <p>";
+    addRating($_POST['overall_rating'], $_POST['hours_per_week_assignments'], $_POST['hours_per_week_study'], $_POST['num_assignments']);
+    // $rankID = getRankID();
+    // addRanks($rankID, $_POST['computingID']);
+    #echo "<p please $rankID </p>";
   }
 
 }
