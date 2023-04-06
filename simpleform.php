@@ -2,36 +2,38 @@
 <?php
 require("connect-db.php");
 
-require("comment-db.php");
-
-$classes = selectAllClasses();
+require("friend-db.php");
+$comments = selectAllComments();
+$friends = selectAllFriends();
 //var_dump($friends);
-$user_comment_to_update = null;
+$friend_info_to_update = null;
+$class_info_to_update = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update"))
   {
-    $comment_info_to_update = selectCommentsByUser($_POST['user_comment_to_update']);
+    $class_info_to_update = getCommentByID($_POST['comment_to_update']);
     #var_dump($friend_info_to_update);
   }
   
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
   {
-    addComment($_POST['studentID'], $_POST['classID'], $_POST['content']);
+    createComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
     $friends = selectAllFriends();
+    $comments = selectAllComments();
   }
    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete"))
   {
     deleteComment($_POST['comment_to_delete']);
-    $classes = selectAllClasses();
-    // $friends = selectAllFriends();
+    $friends = selectAllFriends();
+    $comments = selectAllComments();
   }
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
   {
-    
-    updateComment($_POST['studentID'], $_POST['classID'], $_POST['content']);
-    $classes = selectAllClasses();
+    updateComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
+    $friends = selectAllFriends();
+    $comments = selectAllComments();
   }
 }
 
@@ -60,29 +62,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <body>
 <div class="container">
-  <h1>Friend Book</h1>  
+  <h1>Add Comment</h1>  
 
   <form name="mainForm" action="simpleform.php" method="post">   
   <div class="row mb-3 mx-3">
-    Name:
-    <input type="text" class="form-control" name="studentID" required 
-      value="<?php if ($user_comment_to_update !=null) echo $user_comment_to_update['studentID'];?>"
+  commentID:
+    <input type="text" class="form-control" name="commentID" required 
+      value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['commentID'];?>"
     />  
     </div> 
     <div class="row mb-3 mx-3">    
-    Major:
-    <input type="text" class="form-control" name="classID" required 
-    value="<?php if ($user_comment_to_update !=null) echo $user_comment_to_update['classID'];?>"
+    studentID:
+    <input type="text" class="form-control" name="studentID" required 
+    value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['studentID'];?>"
     /> 
     </div>
     <div class="row mb-3 mx-3">  
-    Year:
-    <input type="text" class="form-control" name="content" required 
-    value="<?php if ($user_comment_to_update !=null) echo $user_comment_to_update['content'];?>"
+    date_posted:
+    <input type="text" class="form-control" name="date_posted" required 
+    value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['date_posted'];?>"
     />   
+    </div>
+    <div class="row mb-3 mx-3">
+    content:
+    <input type="text" class="form-control" name="content" required 
+    value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['content'];?>"
+    />  
+    </div> 
+
   </div> 
   <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add comment" title="click to add comment"/> 
+  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add comment" title="click to insert comment"/> 
 </div>
 <div class="row mb-3 mx-3">
   <input type="submit" class="btn btn-dark" name="actionBtn" value="Confirm update" title="click to confirm update"/> 
@@ -98,27 +108,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <thead>
   <tr style="background-color:#B0B0B0">
     <th width="30%">studentID</th>        
-    <th width="30%">classID</th>        
-    <th width="30%">Comment</th> 
+    <th width="30%">commentID</th>        
+    <th width="30%">date_posted</th> 
+    <th width="30%">content</th> 
     <th>Update?</th>
     <th>Delete?</th>
   </tr>
   </thead>
-<?php foreach ($friends as $item): ?>
+<?php foreach ($comments as $item): ?>
   <tr>
      <td><?php echo $item['studentID']; ?></td>
-     <td><?php echo $item['classID']; ?></td>        
+     <td><?php echo $item['commentID']; ?></td>
+     <td><?php echo $item['date_posted']; ?></td>        
      <td><?php echo $item['content']; ?></td>
      <td>
       <form action="simpleform.php" method="post">
         <input type="submit" name="actionBtn" value="Update" class="btn btn-dark" />
-        <input type="hidden" name="user_comment_to_update" value="<?php echo $item['studentID'];?>" />
+        <input type="hidden" name="comment_to_update" value="<?php echo $item['commentID'];?>" />
       </form>
     </td>    
     <td>
       <form action="simpleform.php" method="post">
         <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger" />
-        <input type="hidden" name="comment_to_delete" value="<?php echo $item['studentID'];?>" />
+        <input type="hidden" name="comment_to_delete" value="<?php echo $item['commentID'];?>" />
       </form>
     </td>                   
   </tr>
