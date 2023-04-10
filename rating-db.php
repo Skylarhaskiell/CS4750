@@ -31,7 +31,7 @@ function addRanks($studentID)
 
 function getClassID($classCode) {
     global $db;
-    $query1 = "SELECT classID from class where classCode = ':classCode'";
+    $query1 = "SELECT classID from class where classCode = :classCode";
     $statement1 = $db->prepare($query1);
     $statement1->bindValue(':classCode', $classCode);
     $statement1->execute();
@@ -42,7 +42,8 @@ function getClassID($classCode) {
 
 # function to update rankAbout table when rating is added
 function addRankAbout($classID) {
-    $query2 = "INSERT INTO rankAbout (classID) VALUES(:classID)";
+    global $db;
+    $query2 = "INSERT INTO rankAbout (classID) VALUES (:classID)";
     $statement2 = $db->prepare($query2);
     $statement2->bindValue(':classID', $classID);
     $statement2->execute();

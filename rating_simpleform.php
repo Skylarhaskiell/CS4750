@@ -6,14 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Rating")) 
   {
+    #add to rating table
     addRating($_POST['overall_rating'], $_POST['hours_per_week_assignments'], $_POST['hours_per_week_study'], $_POST['num_assignments']);
+    #add to ranks table
     addRanks($_POST['computingID']);
-    $classID = getClassID($_POST['course']);
-    debug_to_console($classID);
-    //addRankAbout($classID);
-    // $rankID = getRankID();
-    // addRanks($rankID, $_POST['computingID']);
-    
+    # retrieving class ID
+    $classID = (int)getClassID($_POST['course'])[0];
+    #add to rankAbout table
+    addRankAbout($classID);
+   
   }
 
 }
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <input type="text" class="form-control" name="hours_per_week_study" required />        
   </div>
   <div class="row mb-3 mx-3">
-    Number of assingments:
+    Number of assignments:
     <input type="text" class="form-control" name="num_assignments" required />        
   </div>
   <div class="row mb-3 mx-3">
