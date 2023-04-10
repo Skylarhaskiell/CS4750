@@ -7,9 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Rating")) 
   {
     addRating($_POST['overall_rating'], $_POST['hours_per_week_assignments'], $_POST['hours_per_week_study'], $_POST['num_assignments']);
+    addRanks($_POST['computingID']);
+    $classID = getClassID($_POST['course']);
+    debug_to_console($classID);
+    //addRankAbout($classID);
     // $rankID = getRankID();
     // addRanks($rankID, $_POST['computingID']);
-    #echo "<p please $rankID </p>";
+    
   }
 
 }
@@ -43,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <body>
 <div class="container">
   <h1>Course Rating</h1>  
-
   <form name="mainForm" action="rating_simpleform.php" method="post">  
   <div class="row mb-3 mx-3">
     ComputingID:

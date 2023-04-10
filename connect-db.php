@@ -43,7 +43,7 @@
 
 /** S23, PHP (on GCP, local XAMPP, or CS server) connect to MySQL (on CS server) **/
 $username = 'your-computing-id'; 
-$password = 'UpsornWinter2023';
+$password = 'your-password';
 $host = 'mysql01.cs.virginia.edu';
 $dbname = 'your-computing-id';
 $dsn = "mysql:host=$host;dbname=$dbname";

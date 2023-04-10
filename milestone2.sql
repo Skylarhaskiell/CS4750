@@ -67,7 +67,7 @@ CREATE TABLE classCode (
 );
 
 CREATE TABLE ranks (
-    rankID int,
+    rankID int NOT NULL AUTO_INCREMENT,
     studentID varchar(255),
     PRIMARY KEY (rankID)
     #FOREIGN KEY (studentID) REFERENCES student(studentID),
@@ -75,7 +75,7 @@ CREATE TABLE ranks (
 );
 
 CREATE TABLE rankAbout ( 
-    rankID int, 
+    rankID int NOT NULL AUTO_INCREMENT, 
     classID int,
     PRIMARY KEY (rankID)
     # FOREIGN KEY (rankID) REFERENCES rating(rankID),
