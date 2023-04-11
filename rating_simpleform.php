@@ -1,3 +1,5 @@
+<?php include 'header.php';
+?>
 <?php
 require("connect-db.php");
 require("rating-db.php");
@@ -51,7 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
        
 </head>
 
+
 <body>
+  
 <div class="container">
   <h1>Course Rating</h1>  
   <form name="mainForm" action="rating_simpleform.php" method="post">  
