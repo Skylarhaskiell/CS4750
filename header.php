@@ -30,7 +30,7 @@
                 <a class="nav-link active" href="rating_simpleform.php">Ratings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">Comments</a>
+                <a class="nav-link active" href="simpleform.php">Comments</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
