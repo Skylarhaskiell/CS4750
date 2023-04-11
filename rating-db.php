@@ -51,6 +51,18 @@ function addRankAbout($classID) {
     
 }
 
+# function to show the classes and their ratings
+function selectAllRatings()
+{
+    global $db;
+    $query = "SELECT classCode, semester, year, professorID, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM class NATURAL JOIN rankAbout NATURAL JOIN rating";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
 # function to select all classCode and use it in dropdown menu
 
 function getClassCode()

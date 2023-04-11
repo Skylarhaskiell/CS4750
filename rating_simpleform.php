@@ -2,6 +2,9 @@
 require("connect-db.php");
 require("rating-db.php");
 
+$ratings = selectAllRatings();
+//var_dump($ratings);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Rating")) 
@@ -14,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $classID = (int)getClassID($_POST['course'])[0];
     #add to rankAbout table
     addRankAbout($classID);
+    #refresh ratings
+    $ratings = selectAllRatings();
    
   }
 
@@ -41,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
 
   <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
        
 </head>
@@ -78,6 +84,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div>
 
 </form>  
+
+<div class="row justify-content-center">  
+<table class="w3-table w3-bordered w3-card-4 center" style="width:90%">
+  <thead>
+  <tr style="background-color:#B0B0B0">
+    <th>Course        
+    <th>Semester        
+    <th>Year 
+    <th>Professor 
+    <th>Rating
+    <th>Hours On Assignments/Week   
+    <th>Hours Studying/Week 
+    <th>#Assignments 
+  </tr>
+  </thead>
+<?php foreach ($ratings as $rating): ?>
+  <tr>
+     <td><?php echo $rating['classCode']; ?></td>
+     <td><?php echo $rating['semester']; ?></td>        
+     <td><?php echo $rating['year']; ?></td>  
+     <td><?php echo $rating['professorID']; ?></td> 
+     <td><?php echo $rating['overall_rating']; ?></td>    
+     <td><?php echo $rating['hours_assignment_per_week']; ?></td>    
+     <td><?php echo $rating['hours_studying_per_week']; ?></td>  
+     <td><?php echo $rating['num_assignments']; ?></td>                            
+  </tr>
+<?php endforeach; ?>
+</table>
+</div>  
+
+
  
   
 </div>    
