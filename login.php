@@ -1,43 +1,18 @@
-
 <?php
 require("connect-db.php");
-require("friend-db.php");
-$comments = selectAllComments();
-$friends = selectAllFriends();
-//var_dump($friends);
-$friend_info_to_update = null;
-$class_info_to_update = null;
+
+require("login-db.php");
+$user_to_login = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update"))
+  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Login"))
   {
-    $class_info_to_update = getCommentByID($_POST['comment_to_update']);
+    $user_to_login = getCommentByID($_POST['user_to_login']);
     #var_dump($friend_info_to_update);
   }
-  
-  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
-  {
-    createComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
-    $friends = selectAllFriends();
-    $comments = selectAllComments();
-  }
-   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete"))
-  {
-    deleteComment($_POST['comment_to_delete']);
-    $friends = selectAllFriends();
-    $comments = selectAllComments();
-  }
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
-  {
-    updateComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
-    $friends = selectAllFriends();
-    $comments = selectAllComments();
-  }
 }
-
 ?>
-
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html>
