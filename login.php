@@ -25,9 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $db->query($sql);
 
 
-    if ($result->num_rows > 0) {
+    if ($result->rowCount() > 0) {
         // User exists, show success message
         echo "Login successful!";
+        header('Location: index.html');
+        exit();
+        
     } else {
         // User does not exist, give option to try again or create new user
         echo "Invalid login. Would you like to try again or create a new user?";

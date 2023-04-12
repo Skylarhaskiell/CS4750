@@ -1,36 +1,44 @@
+
 <?php
-
 // Connect to the database
-
-
 require("connect-db.php");
 global $db;
-// $sth = $db->query($query);
+
 // Check if form submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from form
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $password2 = $_POST["password2"];
     $studentID = $_POST["studentID"];
 
-    // // use this code to auto increment
-    // $sql = "SELECT MAX(studentID) as max_id FROM login";
-    // $result = $db->query($sql);
-    // $row = $result->fetch(PDO::FETCH_ASSOC);
-    // $studentID = $row["max_id"] + 1;
-
-    // Insert new user into database
-    $sql = "INSERT INTO login (studentID, username, userPassword) VALUES ('$studentID', '$username', '$password')";
-    if ($db->query($sql) === TRUE) {
-        // Success message
-        echo "User created successfully!";
-    } 
-    else {
-        // Error message
-        echo "Error creating user";
+    // Check if the passwords match
+    if ($password != $password2) {
+        // Show error message
+        echo "Passwords do not match!";
+    } else {
+        // Check if the username or studentID already exists in the database
+        $sql = "SELECT * FROM login WHERE username = '$username' OR studentID = '$studentID'";
+        $result = $db->query($sql);
+        if ($result->rowCount() > 0) {
+            // Show warning message
+            echo "Username or student ID already exists in the database!";
+        } else {
+            // Insert new user into database
+            $sql = "INSERT INTO login (studentID, username, userPassword) VALUES ('$studentID', '$username', '$password')";
+            $db->query($sql);
+            $sql = "SELECT * FROM login WHERE username = '$username' AND userPassword = '$password'";
+            $result = $db->query($sql);
+            if ($result->rowCount() > 0) {
+                // Success message
+                echo "User created successfully!";
+            } else {
+                // Error message
+                echo "Error creating user";
+            }
+        }
     }
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<input type="text" id="username" name="username" required><br><br>
 
 		<label for="password">Password:</label>
-		<input type="text" id="password" name="password" required><br><br>
+		<input type="password" id="password" name="password" required><br><br>
+
+        <label for="password2">Re-Enter Password:</label>
+		<input type="password" id="password2" name="password2" required><br><br>
 
         
 		<label for="studentID">Student ID:</label>
