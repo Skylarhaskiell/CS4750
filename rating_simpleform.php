@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="UTF-8">  
@@ -41,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <meta name="author" content="Hannah Tuma">
   <meta name="description" content="include some description about your page">  
     
-  <title>Bootstrap example</title>
+  <title>Rating Form</title>
   
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -63,6 +64,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     ComputingID:
     <input type="text" class="form-control" name="computingID" required />        
   </div>
+  <head>  
+    <title>Dynamic Drop Down List</title>  
+    </head>  
+    <BODY bgcolor ="pink">  
+        <form id="form1" name="form1" method="post" action="<?php echo $PHP_SELF; ?>">  
+            Class :  
+            <!-- https://www.c-sharpcorner.com/UploadFile/051e29/dropdown-list-in-php/ -->
+            <select Emp Name='NEW'>  
+            <option value="">--- Select ---</option>  
+            <?  
+                global $db;
+                mysqli_connect ("localhost","seh6fy","password1","seh6fy_a");  
+                mysqli_select_db ("seh6fy_a");  
+                $select="seh6fy_a";  
+                if (isset ($select)&&$select!=""){  
+                $select=$_POST ['NEW'];  
+            }  
+            ?>  
+            <?  
+                $list=mysqli_query("select * from class order by classCode asc");  
+            while($row_list=mysqli_fetch_assoc($list)){  
+                ?>  
+                    <option value="<? echo $row_list['classCode']; ?>"<? if($row_list['classCode']==$select){ echo "selected"; } ?>>  
+                                         <?echo $row_list['professorID'];?>  
+                    </option>  
+                    <?  
+                }  
+                mysqli_close($conn);
+                ?>  
+            </select>  
+            <input type="submit" name="Submit" value="Select" />  
+        </form>  
+    </body>  
+</div>
   <div class="row mb-3 mx-3">
     Course:
     <input type="text" class="form-control" name="course" required />        
