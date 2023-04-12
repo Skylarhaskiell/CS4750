@@ -101,10 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="30%">studentID</th>        
-    <th width="30%">commentID</th>        
-    <th width="30%">date_posted</th> 
-    <th width="30%">content</th> 
+    <th width="15%">Student ID</th>        
+    <th width="15%">Date</th> 
+    <th width="60%">Comment</th> 
     <th>Update?</th>
     <th>Delete?</th>
   </tr>
@@ -112,7 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php foreach ($comments as $item): ?>
   <tr>
      <td><?php echo $item['studentID']; ?></td>
-     <td><?php echo $item['commentID']; ?></td>
      <td><?php echo $item['date_posted']; ?></td>        
      <td><?php echo $item['content']; ?></td>
      <td>
