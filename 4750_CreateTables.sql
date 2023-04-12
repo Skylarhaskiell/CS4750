@@ -26,138 +26,6 @@ CREATE TABLE student (
 );
 
 CREATE TABLE class (
-    classID varchar(255),
-    classCode int,
-    semester varchar(255),
-    year int,
-    professorID varchar(255),
-    PRIMARY KEY (classID)
-);
-
-CREATE TABLE professor (
-    professorID varchar(255), 
-    firstName varchar(255), 
-    lastName varchar(255), 
-    instructor_rating int,
-    PRIMARY KEY (professorID)
-);
-
-CREATE TABLE rating (
-    rankID int, 
-    hours_assignment_per_week int, 
-    overall_rating int, 
-    hours_studying_per_week int, 
-    num_assignments int,
-    PRIMARY KEY (rankID)
-);
-
-CREATE TABLE likes (
-    studentID varchar(255),
-    classID varchar(255), 
-    PRIMARY KEY (studentID, classID),
-    FOREIGN KEY (studentID) REFERENCES student(studentID),
-    FOREIGN KEY (classID) REFERENCES class(classID)
-);
-    
-CREATE TABLE classCode (
-    classID int,
-    classCode varchar(255),
-    PRIMARY KEY (classID)
-    # FOREIGN KEY (classID) REFERENCES class(classID)
-);
-
-CREATE TABLE ranks (
-    rankID int,
-    studentID varchar(255),
-    PRIMARY KEY (rankID), 
-    FOREIGN KEY (studentID) REFERENCES student(studentID),
-    FOREIGN KEY (rankID) REFERENCES rating(rankID)
-);
-
-CREATE TABLE rankAbout ( 
-    rankID int, 
-    classID int,
-    PRIMARY KEY (rankID)
-    # FOREIGN KEY (rankID) REFERENCES rating(rankID),
-    # FOREIGN KEY (classID) REFERENCES class(classID)
-);
-
-CREATE TABLE comments (
-    commentID int, 
-    studentID varchar(255), 
-    date_posted date, 
-    content varchar(255),
-    PRIMARY KEY (commentID),
-    FOREIGN KEY (studentID) REFERENCES student(studentID)    
-);
-
-CREATE TABLE login (
-    username varchar(255), 
-    userPassword varchar(255), 
-    studentID varchar(255),
-    PRIMARY KEY(username, userPassword),
-    FOREIGN KEY (studentID) REFERENCES student(studentID)    
-);
-
-CREATE TABLE studentComment (
-    commentID int, 
-    studentID varchar(255),
-    PRIMARY KEY (commentID), 
-    FOREIGN KEY(commentID) REFERENCES comment(commentID),
-    FOREIGN KEY (studentID) REFERENCES student(studentID) 
-);
-
-CREATE TABLE classComment (
-    commentID int, 
-    classID int,
-    PRIMARY KEY (commentID)
-    # FOREIGN KEY(commentID) REFERENCES comment(commentID),
-    # FOREIGN KEY(classID) REFERENCES class(classID)
-);
-
-CREATE TABLE classYear (
-    classID int, 
-    year int,
-    PRIMARY KEY (classID)
-    # FOREIGN KEY (classID) REFERENCES class(classID)
-);
-
-CREATE TABLE classSemester (
-    classID int, 
-    semester varchar(255),
-    PRIMARY KEY (classID)
-    # FOREIGN KEY (classID) REFERENCES class(classID)
-);
-
-
-DROP TABLE IF EXISTS student;
-DROP TABLE IF EXISTS class;
-DROP TABLE IF EXISTS professor;
-DROP TABLE IF EXISTS rating;
-DROP TABLE IF EXISTS num_assignments;
-DROP TABLE IF EXISTS likes;
-DROP TABLE IF EXISTS classCode;
-DROP TABLE IF EXISTS ranks;
-DROP TABLE IF EXISTS ranksAbout;
-DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS login;
-DROP TABLE IF EXISTS studentComment;
-DROP TABLE IF EXISTS classComment;
-DROP TABLE IF EXISTS classYear;
-DROP TABLE IF EXISTS classSemester;
-DROP TABLE IF EXISTS rankAbout;
-
-
-
-CREATE TABLE student (
-    studentID varchar(255),
-    firstName varchar(255),
-    lastName varchar(255),
-    year int,
-    PRIMARY KEY (studentID)
-);
-
-CREATE TABLE class (
     classID int,
     classCode varchar(255),
     semester varchar(255),
@@ -199,7 +67,7 @@ CREATE TABLE classCode (
 );
 
 CREATE TABLE ranks (
-    rankID int,
+    rankID int NOT NULL AUTO_INCREMENT,
     studentID varchar(255),
     PRIMARY KEY (rankID)
     #FOREIGN KEY (studentID) REFERENCES student(studentID),
@@ -215,7 +83,7 @@ CREATE TABLE rankAbout (
 );
 
 CREATE TABLE comments (
-    commentID int, 
+    commentID int NOT NULL AUTO_INCREMENT, 
     studentID varchar(255), 
     date_posted date, 
     content varchar(255),
@@ -3881,4 +3749,120 @@ VALUES (2031, 'CS1010001', 'Fall', 2022, ''),
 (11494, 'CS9999045', 'Spring', 2023, 'Xiaozhu Lin'),
 (11495, 'CS9999046', 'Spring', 2023, 'Seongkook Heo'),
 (11496, 'CS9999047', 'Spring', 2023, 'Yixin Sun')
+;
+
+INSERT INTO classCode (classID, classCode) SELECT classID, classCode FROM class;
+INSERT INTO classSemester (classID, semester)
+SELECT classID, semester
+FROM class;
+
+INSERT INTO classYear (classID, year)
+SELECT classID, year
+FROM class;
+
+-- sample data for `comments`
+INSERT INTO `comments` (`studentID`, `date_posted`, `content`) VALUES
+('hmt7qvt', NOW(), 'I really loved this class!'),
+('smw6ure', NOW(), "This class was ok."),
+('seh6fy', NOW(), "Love this class!"),
+('hmt7qvt', NOW(), 'this class and prof were the best!'),
+('smw6ure', NOW(), "meh."),
+('hmt7qvt', NOW(), 'I did not like this class'),
+('smw6ure', NOW(), "This class was ok."),
+('hmt7qvt', NOW(), 'I really loved this class!!!'),
+('smw6ure', NOW(), "This class was ok."),
+('hmt7qvt', NOW(), 'I really loved this class!')
+;
+-- sample data for `likes`
+INSERT INTO `likes` (`studentID`, `classID`) VALUES
+('hmt7qvt', 2032),
+('smq6ure', 2032),
+('seh6fy', 11028),
+('hmt7qvt', 2033),
+('smq6ure', 2034),
+('seh6fy', 11027),
+('hmt7qvt', 2038),
+('smq6ure', 2036),
+('seh6fy', 11030),
+('hmt7qvt', 2039)
+
+;
+-- sample data for `login`
+INSERT INTO `login` (`username`, `userPassword`, `studentID`) VALUES
+('hmt', 'password1', 'hmt7qvt'),
+('smw', 'password2', 'smw6ure'),
+('seh', 'password3', 'seh6fy'),
+('new', 'password4', 'ab1cd'),
+('new1', 'password5', 'ef2gh'),
+('new2', 'password6', 'ij3kl'),
+('new3', 'password7', 'mbn4op'),
+('new4', 'password8', 'qr5st'),
+('new5', 'password9', 'uv6wx'),
+('new6', 'password10', 'yz7ab')
+;
+-- sample data for `rankAbout`
+INSERT INTO `rankAbout` (`rankID`, `classID`) VALUES
+(1, 2032),
+(2, 2032),
+(3, 11028),
+(4, 2033),
+(5, 2034),
+(6, 11027),
+(7, 2038),
+(8, 2036),
+(9, 11030),
+(10, 2039)
+;
+-- sample data for `student`
+INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `year`) VALUES
+('hmt7qvt', 'Hannah', 'Tuma', 4),
+('smw6ure', 'Sarah', 'Wimbish', 3),
+('seh6fy', 'Skylar', 'Haskiell', 3),
+('ab1cd', 'Abby', 'Tuma', 4),
+('ef2gh', 'Eric', 'Wimbish', 3),
+('ij3kl', 'Izzy', 'Haskiell', 3),
+('mbn4op', 'Molly', 'Tuma', 4),
+('rq5st', 'Riley', 'Wimbish', 3),
+('uv6wx', 'Uma', 'Haskiell', 3),
+('yz7ab', 'Yara', 'Tuma', 4)
+;
+
+INSERT INTO ranks (rankID, studentID) VALUES 
+(1, 'hmt7qvt'), 
+(2, 'smw6ure'), 
+(3, 'seh6fy'),
+(4, 'ab1cd'),
+(5, 'ef2gh'),
+(6, 'ij3kl'),
+(7, 'mbn4op'),
+(8, 'rq5st'),
+(9, 'uv6wx'),
+(10, 'yz7ab')
+;
+
+INSERT INTO rating (rankID, hours_assignment_per_week, overall_rating, hours_studying_per_week, num_assignments) VALUES 
+(1, 10, 8, 20, 5), 
+(2, 5, 7, 15, 3), 
+(3, 15, 9, 30, 6),
+(4, 10, 9, 25, 6),
+(5, 15, 8, 20, 5),
+(6, 8, 7, 20, 4),
+(7, 12, 9, 15, 4),
+(8, 8, 10, 20, 6),
+(9, 15, 8, 25, 3),
+(10, 12, 8, 32, 6)
+
+;
+
+INSERT INTO studentComment (commentID, studentID) VALUES 
+(1, 'hmt7qvt'), 
+(2, 'smw6ure'), 
+(3, 'seh6fy'),
+(4, 'ab1cd'),
+(5, 'ef2gh'),
+(6, 'ij3kl'),
+(7, 'mbn4op'),
+(8, 'rq5st'),
+(9, 'uv6wx'),
+(10, 'yz7ab')
 ;
