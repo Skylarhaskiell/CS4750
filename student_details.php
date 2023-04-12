@@ -17,12 +17,10 @@ $result = $db->query($sql);
 if ($result->rowCount() == 0) {
     // Error message
     echo "Student ID not found in login table";
-    
 }
-
 // Insert data into student table
-else{
-$sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', '$year)";
+if($result->rowCount() != 0){
+$sql = "INSERT INTO student (studentID, firstName, lastName,  year)  VALUES ('$studentID','$firstName', '$lastName',  '$year)";
 $db->query($sql);
 
 // Check if insertion was successful
@@ -66,7 +64,7 @@ else {
 		<input type="text" id="lastName" name="lastName" required><br><br>
 
         <label for="year"> Academic Year</label>
-		<input type="text" id="year" name="year" required><br><br>
+		<input type="number" id="year" name="year" required><br><br>
 
 
 		<input type="submit" value="Submit Info">
