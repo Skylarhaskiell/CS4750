@@ -7,6 +7,9 @@ require("rating-db.php");
 $ratings = selectAllRatings();
 //var_dump($ratings);
 
+
+$rating_info_to_update = null;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Rating")) 
@@ -26,8 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 }
 ?>
-
-
 
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -64,39 +65,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     ComputingID:
     <input type="text" class="form-control" name="computingID" required />        
   </div>
-  <head>  
-    <title>Dynamic Drop Down List</title>  
-    </head>  
-    <BODY bgcolor ="pink">  
-        <form id="form1" name="form1" method="post" action="<?php echo $PHP_SELF; ?>">  
-            Class :  
-            <!-- https://www.c-sharpcorner.com/UploadFile/051e29/dropdown-list-in-php/ -->
-            <select Emp Name='NEW'>  
-            <option value="">--- Select ---</option>  
-            <?  
-                global $db;
-                mysqli_connect ("localhost","seh6fy","password1","seh6fy_a");  
-                mysqli_select_db ("seh6fy_a");  
-                $select="seh6fy_a";  
-                if (isset ($select)&&$select!=""){  
-                $select=$_POST ['NEW'];  
-            }  
-            ?>  
-            <?  
-                $list=mysqli_query("select * from class order by classCode asc");  
-            while($row_list=mysqli_fetch_assoc($list)){  
-                ?>  
-                    <option value="<? echo $row_list['classCode']; ?>"<? if($row_list['classCode']==$select){ echo "selected"; } ?>>  
-                                         <?echo $row_list['professorID'];?>  
-                    </option>  
-                    <?  
-                }  
-                mysqli_close($conn);
-                ?>  
-            </select>  
-            <input type="submit" name="Submit" value="Select" />  
-        </form>  
-    </body>  
+  <head>
+
+<form name="mainForm" action="rating_simpleform.php" method="post">
+    <p> Class: 
+    <select name="owner">
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_a");
+        $sql = mysqli_query($connection, "SELECT DISTINCT classCode from class ORDER BY classCode");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option value=\"owner1\">" . $row['classCode'] . "</option>";
+        }
+      ?>
+
+  </select>
+    </p>
+
+    <p> Professor: 
+    <select name="owner">
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_a");
+        $sql = mysqli_query($connection, "SELECT DISTINCT firstName, lastName from professor ORDER BY firstName");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option value=\"owner1\">" . $row['firstName']. " ". $row['lastName']. "</option>";
+        }
+      ?>
+  </select>
+    </p>
+
+
+    <p> Semester: 
+    <select name="owner">
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_a");
+        $sql = mysqli_query($connection, "SELECT DISTINCT semester from class");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option value=\"owner1\">" . $row['semester']. "</option>";
+        }
+      ?>
+  </select>
+    </p>
+
+
+    <p> Year: 
+    <select name="owner">
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_a");
+        $sql = mysqli_query($connection, "SELECT DISTINCT year from class");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option value=\"owner1\">" . $row['year']. "</option>";
+        }
+      ?>
+      <input="hidden" 
+      value="<?php if ($rating_info_to_update !=null) echo $rating_info_to_update['year'];?>
+  </select>
+    </p>
+  </form>
+
 </div>
   <div class="row mb-3 mx-3">
     Course:
@@ -151,12 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </tr>
 <?php endforeach; ?>
 </table>
+
 </div>  
 
 
- 
-  
-</div>    
+</div>  
+
 </body>
 </html>
-

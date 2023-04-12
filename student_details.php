@@ -15,19 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $sql = "SELECT * FROM login WHERE studentID = '$studentID'";
 $result = $db->query($sql);
 if ($result->rowCount() == 0) {
-    // Error message
-    echo "Student ID not found in login table";
+    $sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', $year)";
+    $db->query($sql);
+
+    // Insert data into student table
+
+    $sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', $year)";
+    $db->query($sql);   
     
 }
-
-// Insert data into student table
-else{
-$sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', '$year)";
-$db->query($sql);
-
 // Check if insertion was successful
 $sql = "SELECT * FROM student WHERE firstName = '$firstName' AND lastName = '$lastName'";
 $result = $db->query($sql);
+
 if ($result->rowCount() > 0) {
     // Success message
     echo "User created successfully!";
@@ -40,7 +40,7 @@ else {
     header('Location: student_details.php');
     exit();
 }
-}
+
 
         }
     
@@ -54,7 +54,7 @@ else {
 </head>
 <body>
 	<h2>Create User</h2>
-	<form method="post" action="student_details.php">
+	<form method="POST" action="student_details.php">
         
 		<label for="studentID">Student ID:</label>
 		<input type="text" id="studentID" name="studentID" ><br><br>
@@ -69,7 +69,7 @@ else {
 		<input type="text" id="year" name="year" required><br><br>
 
 
-		<input type="submit" value="Submit Info">
+		<input onclick="window.location.href = 'student_details.php';" type="submit" value="Submit Info">
 	</form>
 </body>
 </html>

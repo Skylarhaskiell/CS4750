@@ -128,6 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </tr>
 <?php endforeach; ?>
 </table>
-</div>     
+</div>   
 </body>
 </html>
