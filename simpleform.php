@@ -65,12 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <h1>Add Comment</h1>  
 
   <form name="mainForm" action="simpleform.php" method="post">   
-  <div class="row mb-3 mx-3">
-  commentID:
-    <input type="text" class="form-control" name="commentID" required 
-      value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['commentID'];?>"
-    />  
-    </div> 
     <div class="row mb-3 mx-3">    
     studentID:
     <input type="text" class="form-control" name="studentID" required 
@@ -80,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <div class="row mb-3 mx-3">  
     date_posted:
     <input type="text" class="form-control" name="date_posted" required 
-    value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['date_posted'];?>"
+    value="<?php echo date("Y-m-d")?> <?php if ($class_info_to_update !=null) echo $class_info_to_update['date_posted'];?>"
     />   
     </div>
     <div class="row mb-3 mx-3">
