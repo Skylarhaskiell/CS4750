@@ -1,9 +1,10 @@
-
+<?php include 'header.php';
+?>
 <?php
 require("connect-db.php");
 require("friend-db.php");
 $comments = selectAllComments();
-$friends = selectAllFriends();
+//$friends = selectAllFriends();
 //var_dump($friends);
 $friend_info_to_update = null;
 $class_info_to_update = null;
@@ -19,19 +20,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
   {
     createComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
-    $friends = selectAllFriends();
+    //$friends = selectAllFriends();
     $comments = selectAllComments();
   }
    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete"))
   {
     deleteComment($_POST['comment_to_delete']);
-    $friends = selectAllFriends();
+    //$friends = selectAllFriends();
     $comments = selectAllComments();
   }
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
   {
     updateComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
-    $friends = selectAllFriends();
+    //$friends = selectAllFriends();
     $comments = selectAllComments();
   }
 }
