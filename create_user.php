@@ -32,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result->rowCount() > 0) {
                 // Success message
                 echo "User created successfully!";
+                header('Location: index.html');
+                exit();
             } else {
                 // Error message
                 echo "Error creating user";
