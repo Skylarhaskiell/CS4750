@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result->rowCount() > 0) {
                 // Success message
                 echo "User created successfully!";
-                header('Location: index.html');
+                header('Location: student_details.php');
                 exit();
             } else {
                 // Error message
@@ -51,6 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 	<h2>Create User</h2>
 	<form method="post" action="create_user.php">
+    <div><?php echo $message; ?></div>
+    
 		<label for="username">Username:</label>
 		<input type="text" id="username" name="username" required><br><br>
 
