@@ -60,14 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
 <div class="container">
   <h1>Course Rating</h1>  
-  <form name="mainForm" action="rating_simpleform.php" method="post">  
+  <form name="rating_form" action="rating_simpleform.php" method="POST">  
   <div class="row mb-3 mx-3">
     ComputingID:
     <input type="text" class="form-control" name="computingID" required />        
   </div>
-  <head>
-
-<form name="mainForm" action="rating_simpleform.php" method="post">
     <p> Class: 
     <select name="owner">
       <?php 
@@ -77,7 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           echo "<option value=\"owner1\">" . $row['classCode'] . "</option>";
         }
       ?>
-
+      <input type ="hidden" 
+        value="<?php if ($rating_info_to_update !=null) echo $rating_info_to_update['class'];?>"
+      />
   </select>
     </p>
 
@@ -85,11 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <select name="owner">
       <?php 
         $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_a");
-        $sql = mysqli_query($connection, "SELECT DISTINCT firstName, lastName from professor ORDER BY firstName");
+        $sql = mysqli_query($connection, "SELECT DISTINCT firstName, lastName from professor ORDER BY lastName");
         while ($row = $sql->fetch_assoc()){
-          echo "<option value=\"owner1\">" . $row['firstName']. " ". $row['lastName']. "</option>";
+          echo "<option value=\"owner1\">" . $row['lastName']. ", ". $row['firstName']. "</option>";
         }
       ?>
+
+      <input type ="hidden" 
+        value="<?php if ($rating_info_to_update !=null) echo $rating_info_to_update['professor'];?>"
+      />
   </select>
     </p>
 
@@ -103,6 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           echo "<option value=\"owner1\">" . $row['semester']. "</option>";
         }
       ?>
+      <input type ="hidden" 
+        value="<?php if ($rating_info_to_update !=null) echo $rating_info_to_update['semester'];?>"
+      />
   </select>
     </p>
 
@@ -116,17 +122,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           echo "<option value=\"owner1\">" . $row['year']. "</option>";
         }
       ?>
-      <input="hidden" 
-      value="<?php if ($rating_info_to_update !=null) echo $rating_info_to_update['year'];?>
+      <input type ="hidden" 
+      value="<?php if ($rating_info_to_update !=null) echo $rating_info_to_update['year'];?>"
+      />
+
   </select>
     </p>
-  </form>
 
 </div>
-  <div class="row mb-3 mx-3">
-    Course:
-    <input type="text" class="form-control" name="course" required />        
-  </div>
   <div class="row mb-3 mx-3">
     Overall Rating:
     <input type="text" class="form-control" name="overall_rating" required />        
@@ -145,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </div>
   <div class="row mb-3 mx-3">
   <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
+  </form>
 </div>
 
 </form>  
