@@ -65,12 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <h1>Add Comment</h1>  
 
   <form name="mainForm" action="simpleform.php" method="post">   
-  <div class="row mb-3 mx-3">
-  commentID:
-    <input type="text" class="form-control" name="commentID" required 
-      value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['commentID'];?>"
-    />  
-    </div> 
     <div class="row mb-3 mx-3">    
     studentID:
     <input type="text" class="form-control" name="studentID" required 
@@ -80,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <div class="row mb-3 mx-3">  
     date_posted:
     <input type="text" class="form-control" name="date_posted" required 
-    value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['date_posted'];?>"
+    value="<?php echo date("Y-m-d")?> <?php if ($class_info_to_update !=null) echo $class_info_to_update['date_posted'];?>"
     />   
     </div>
     <div class="row mb-3 mx-3">
@@ -107,10 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="30%">studentID</th>        
-    <th width="30%">commentID</th>        
-    <th width="30%">date_posted</th> 
-    <th width="30%">content</th> 
+    <th width="15%">Student ID</th>        
+    <th width="15%">Date</th> 
+    <th width="60%">Comment</th> 
     <th>Update?</th>
     <th>Delete?</th>
   </tr>
@@ -118,7 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php foreach ($comments as $item): ?>
   <tr>
      <td><?php echo $item['studentID']; ?></td>
-     <td><?php echo $item['commentID']; ?></td>
      <td><?php echo $item['date_posted']; ?></td>        
      <td><?php echo $item['content']; ?></td>
      <td>
@@ -136,6 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </tr>
 <?php endforeach; ?>
 </table>
-</div>     
+</div>   
 </body>
 </html>
