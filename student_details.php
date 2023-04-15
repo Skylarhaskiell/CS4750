@@ -15,10 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $sql = "SELECT * FROM login WHERE studentID = '$studentID'";
 $result = $db->query($sql);
 if ($result->rowCount() == 0) {
-    $sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', $year)";
-    $db->query($sql);
 
-    // Insert data into student table
+    // Error message
+    echo "Student ID not found in login table";
+}
+// Insert data into student table
+if($result->rowCount() != 0){
+$sql = "INSERT INTO student (studentID, firstName, lastName,  year)  VALUES ('$studentID','$firstName', '$lastName',  '$year)";
+$db->query($sql);
 
     $sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', $year)";
     $db->query($sql);   
@@ -66,7 +70,7 @@ else {
 		<input type="text" id="lastName" name="lastName" required><br><br>
 
         <label for="year"> Academic Year</label>
-		<input type="text" id="year" name="year" required><br><br>
+		<input type="number" id="year" name="year" required><br><br>
 
 
 		<input onclick="window.location.href = 'student_details.php';" type="submit" value="Submit Info">
