@@ -66,7 +66,7 @@
 	}
 
 	// Query the database for all professors
-	$sql = "SELECT * FROM professor";
+	$sql = "SELECT * FROM professor order by lastName";
 	$result = $db->query($sql);
 
 	// Display the dropdown with the list of professors
