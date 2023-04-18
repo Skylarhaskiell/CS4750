@@ -58,7 +58,7 @@ else {
 </head>
 <body>
 	<h2>Create User</h2>
-	<form method="POST" action="student_details.php">
+	<form method="POST" action="index.html">
         
 		<label for="studentID">Student ID:</label>
 		<input type="text" id="studentID" name="studentID" ><br><br>

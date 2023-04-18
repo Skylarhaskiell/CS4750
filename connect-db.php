@@ -47,6 +47,7 @@ $password = 'CS4750!';
 $host = 'mysql01.cs.virginia.edu';
 $dbname = 'smw6ure_b';
 $dsn = "mysql:host=$host;dbname=$dbname";
+$mysqli = new mysqli($host, $username, $password, $dbname);
 ////////////////////////////////////////////
 
 // To find a hostname, access phpMyAdmin

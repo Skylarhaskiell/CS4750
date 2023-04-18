@@ -70,11 +70,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <div class="row mb-3 mx-3"> 
     Course: 
     <select type="text" class="form-control" name = 'course' required>
+      <option> SELECT COURSE </option>
       <?php 
         $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
         $sql = mysqli_query($connection, "SELECT DISTINCT classCode from class ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
           echo "<option>" . $row['classCode']. "</option>";
+        }
+      ?>
+  </select>
+  </div>
+
+  <div class="row mb-3 mx-3"> 
+    Professor: 
+    <select type="text" class="form-control" name = 'semester' required>
+      <option> SELECT PROFESSOR </option>
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
+        $sql = mysqli_query($connection, "SELECT professorID from class");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option>" . $row['professorID']. "</option>";
         }
       ?>
   </select>
@@ -101,20 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $sql = mysqli_query($connection, "SELECT DISTINCT semester from class");
         while ($row = $sql->fetch_assoc()){
           echo "<option>" . $row['semester']. "</option>";
-        }
-      ?>
-  </select>
-  </div>
-
-  <div class="row mb-3 mx-3"> 
-    Professor: 
-    <select type="text" class="form-control" name = 'semester' required>
-      <?php 
-        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
-        $class = $_POST['course'];
-        $sql = mysqli_query($connection, "SELECT professorID from class WHERE classCode = '" . $class . "'");
-        while ($row = $sql->fetch_assoc()){
-          echo "<option>" . $row['professorID']. "</option>";
         }
       ?>
   </select>
@@ -170,12 +171,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </tr>
 <?php endforeach; ?>
 </table>
-</div>   
+</div>  
+
+
+ 
   
 </div>    
 </body>
-<br>
-<br>
-<br>
 </html>
 

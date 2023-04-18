@@ -89,15 +89,15 @@ function debug_to_console($data) {
 
 
 # function to select professors that taught a certain class
-// function getProfessorsByClass($classCode) {
-//     global $db;
-//     $query = "SELECT professorID FROM class where classCode = :classCode";
-//     $statement = $db->prepare($query);
-//     $statement->execute();
-//     $results = $statment->fetchAll();
-//     $statement->closeCursor();
-//     return $results;
-// }
+function getProfessorsByClass($classCode) {
+    global $db;
+    $query = "SELECT professorID FROM class where classCode = :classCode";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $results = $statment->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
 
 # function to get the rank id from the rating that was just created
 
