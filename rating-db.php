@@ -29,15 +29,17 @@ function addRanks($studentID)
 
 #function to get classID from classCode
 
-function getClassID($classCode) {
+function getClassID($classCode, $year, $semester) {
     global $db;
-    $query1 = "SELECT classID from class where classCode = :classCode";
+    $query1 = "SELECT classID from class where classCode = :classCode and semester = :semester and year = :year";
     $statement1 = $db->prepare($query1);
     $statement1->bindValue(':classCode', $classCode);
+    $statement1->bindValue(':semester', $semester);
+    $statement1->bindValue(':year', $year);
     $statement1->execute();
     $classID = $statement1->fetch();
     $statement1->closeCursor();
-    return $classID;
+    return $classID[0];
 }
 
 # function to update rankAbout table when rating is added
@@ -84,6 +86,7 @@ function debug_to_console($data) {
 
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
+
 
 # function to get the rank id from the rating that was just created
 
