@@ -8,6 +8,22 @@
 			padding: 10px;
 			margin-bottom: 20px;
 		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.title-box {
+			background-color: #f28482;
+			color: white;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+		.class-list {
+			margin-top: 20px;
+			padding: 10px;
+			border: 1px solid black;
+		}
 	</style>
 </head>
 <body>
@@ -16,7 +32,7 @@
 	// Establish a database connection
 	require("connect-db.php");
 	global $db;
-
+	
 	// Display the selected professor's information
 	if (isset($_GET["professorID"])) {
 		$professorID = $_GET["professorID"];
@@ -24,10 +40,21 @@
 		$result = $db->query($sql);
 
 		if ($result->rowCount() > 0) {
-			($row = $result->fetch(PDO::FETCH_ASSOC));
-			echo "<div class='professor-box'>";
-			echo "<h2>" . $row["firstName"] . " " . $row["lastName"] . "</h2>";
-			echo "<p>Instructor Rating: " . $row["instructor_rating"] . "</p>";
+            ($row = $result->fetch(PDO::FETCH_ASSOC));
+            echo "<div class='professor-box'>";
+            echo "<h2>" . $row["firstName"] . " " . $row["lastName"] . "</h2>";
+            echo "<p>Instructor Rating: " . $row["instructor_rating"] . "</p>";
+            echo "<div class='class-list'>";
+            echo "<h3>Classes Taught:</h3>";
+            echo "<ul>";
+            // Join the class table with the professor table using professorID as the key
+            $sql = "SELECT * FROM class JOIN professor ON class.professorID = professor.professorID WHERE professor.professorID = '$professorID'";
+            $result = $db->query($sql);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<li>" . $row["classCode"] . " - " . $row["semester"] . " " . $row["year"] . "</li>";
+            }
+			echo "</ul>";
+			echo "</div>";
 			echo "</div>";
 		} else {
 			echo "Professor not found.";
@@ -38,11 +65,20 @@
 	$sql = "SELECT * FROM professor";
 	$result = $db->query($sql);
 
-	// Display the list of professors
+	// Display the dropdown with the list of professors
 	if ($result->rowCount() > 0) {
+		echo "<div class='container'>";
+		echo "<div class='title-box'><h2>Select a professor to see their ratings</h2></div>";
+		echo "<form action=''>";
+		echo "<select name='professorID'>";
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			echo "<p><a href=\"?professorID=" . $row["professorID"] . "\">" . $row["firstName"] . " " . $row["lastName"] . "</a></p>";
+			echo "<option value='" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</option>";
 		}
+		echo "</select>";
+		echo "<br><br>";
+		echo "<input type='submit' value='Select'>";
+		echo "</form>";
+		echo "</div>";
 	} else {
 		echo "No professors found.";
 	}
