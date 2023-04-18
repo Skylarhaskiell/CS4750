@@ -7,6 +7,8 @@ require("rating-db.php");
 $ratings = selectAllRatings();
 //var_dump($ratings);
 
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Rating")) 
@@ -16,12 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     #add to ranks table
     addRanks($_POST['computingID']);
     # retrieving class ID
-    $classID = (int)getClassID($_POST['course']);
+    $classID = (int)getClassID($_POST['course'], $_POST['year'], $_POST['semester']);
     #add to rankAbout table
     addRankAbout($classID);
     #refresh ratings
     $ratings = selectAllRatings();
     header("location:rating_simpleform.php");
+
   }
 
 }
@@ -62,20 +65,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     ComputingID:
     <input type="text" class="form-control" name="computingID" required />        
   </div>
-  <!-- <div class="row mb-3 mx-3">
-    Course:
-    <input type="text" class="form-control" name="course" required />        
-  </div> -->
 
 
   <div class="row mb-3 mx-3"> 
     Course: 
-    <select type="text" class="input" name = 'course' required>
+    <select type="text" class="form-control" name = 'course' required>
       <?php 
-        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_a");
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
         $sql = mysqli_query($connection, "SELECT DISTINCT classCode from class ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
           echo "<option>" . $row['classCode']. "</option>";
+        }
+      ?>
+  </select>
+  </div>
+
+  <div class="row mb-3 mx-3"> 
+    Year: 
+    <select type="text" class="form-control" name = 'year' required>
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
+        $sql = mysqli_query($connection, "SELECT DISTINCT year from class");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option>" . $row['year']. "</option>";
+        }
+      ?>
+  </select>
+  </div>
+
+  <div class="row mb-3 mx-3"> 
+    Semester: 
+    <select type="text" class="form-control" name = 'semester' required>
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
+        $sql = mysqli_query($connection, "SELECT DISTINCT semester from class");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option>" . $row['semester']. "</option>";
+        }
+      ?>
+  </select>
+  </div>
+
+  <div class="row mb-3 mx-3"> 
+    Professor: 
+    <select type="text" class="form-control" name = 'semester' required>
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
+        $class = $_POST['course'];
+        $sql = mysqli_query($connection, "SELECT professorID from class WHERE classCode = '" . $class . "'");
+        while ($row = $sql->fetch_assoc()){
+          echo "<option>" . $row['professorID']. "</option>";
         }
       ?>
   </select>
@@ -131,12 +170,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </tr>
 <?php endforeach; ?>
 </table>
-</div>  
-
-
- 
+</div>   
   
 </div>    
 </body>
+<br>
+<br>
+<br>
 </html>
 
