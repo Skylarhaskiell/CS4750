@@ -29,13 +29,11 @@ function addRanks($studentID)
 
 #function to get classID from classCode
 
-function getClassID($classCode, $year, $semester) {
+function getClassID($classCode) {
     global $db;
-    $query1 = "SELECT classID from class where classCode = :classCode and semester = :semester and year = :year";
+    $query1 = "SELECT classID from class where classCode = :classCode";
     $statement1 = $db->prepare($query1);
     $statement1->bindValue(':classCode', $classCode);
-    $statement1->bindValue(':semester', $semester);
-    $statement1->bindValue(':year', $year);
     $statement1->execute();
     $classID = $statement1->fetch();
     $statement1->closeCursor();

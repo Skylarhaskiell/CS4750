@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     #add to ranks table
     addRanks($_POST['computingID']);
     # retrieving class ID
-    $classID = (int)getClassID($_POST['course'], $_POST['year'], $_POST['semester']);
+    $classID = (int)getClassID($_POST['course']);
     #add to rankAbout table
     addRankAbout($classID);
     #refresh ratings
@@ -73,35 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <option> SELECT COURSE </option>
       <?php 
         $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
-        $sql = mysqli_query($connection, "SELECT DISTINCT classCode from class ORDER BY classCode");
+        $sql = mysqli_query($connection, "SELECT DISTINCT SUBSTRING(classCode, 1,6) as classSubstring, professorID, classCode from class ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
-          echo "<option>" . $row['classCode']. "</option>";
-        }
-      ?>
-  </select>
-  </div>
-
-  <div class="row mb-3 mx-3"> 
-    Year: 
-    <select type="text" class="form-control" name = 'year' required>
-      <?php 
-        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
-        $sql = mysqli_query($connection, "SELECT DISTINCT year from class");
-        while ($row = $sql->fetch_assoc()){
-          echo "<option>" . $row['year']. "</option>";
-        }
-      ?>
-  </select>
-  </div>
-
-  <div class="row mb-3 mx-3"> 
-    Semester: 
-    <select type="text" class="form-control" name = 'semester' required>
-      <?php 
-        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
-        $sql = mysqli_query($connection, "SELECT DISTINCT semester from class");
-        while ($row = $sql->fetch_assoc()){
-          echo "<option>" . $row['semester']. "</option>";
+          if($row['professorID'] != ""){
+            echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - " . $row['professorID'] ."</option>";
+          }
+          else{
+            echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - Unknown Professor" ."</option>";
+          }
         }
       ?>
   </select>
