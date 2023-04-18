@@ -45,7 +45,7 @@
 $username = 'smw6ure'; 
 $password = 'CS4750!';
 $host = 'mysql01.cs.virginia.edu';
-$dbname = 'smw6ure_a';
+$dbname = 'smw6ure_b';
 $dsn = "mysql:host=$host;dbname=$dbname";
 ////////////////////////////////////////////
 

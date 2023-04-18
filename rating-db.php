@@ -37,7 +37,7 @@ function getClassID($classCode) {
     $statement1->execute();
     $classID = $statement1->fetch();
     $statement1->closeCursor();
-    return $classID;
+    return $classID[0];
 }
 
 # function to update rankAbout table when rating is added
