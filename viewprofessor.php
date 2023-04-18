@@ -48,8 +48,12 @@
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
             // Join the class table with the professor table using professorID as the key
-            $sql = "SELECT * FROM class JOIN professor ON class.professorID = professor.professorID WHERE professor.professorID = '$professorID'";
-            $result = $db->query($sql);
+            $sql = "SELECT class.classID, class.classCode, class.semester, class.year, professor.professorID
+            FROM class
+            JOIN professor ON professor.professorID = class.professorID
+            WHERE CONCAT(professor.firstName, ' ', professor.lastName) = '$row[professorID]'";
+            
+			 $result = $db->query($sql);
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<li>" . $row["classCode"] . " - " . $row["semester"] . " " . $row["year"] . "</li>";
             }

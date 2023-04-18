@@ -47,11 +47,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
 	<title>Create User</title>
+	<style>
+		body {
+			background-color: #6DA9E4;
+		}
+		form {
+			text-align: center;
+			margin-top: 50px;
+		}
+	</style>
 </head>
 <body>
-	<h2>Create User</h2>
+	
 	<form method="post" action="create_user.php">
-    <div><?php echo $message; ?></div>
+		
+        <h2>Create User</h2>
     
 		<label for="username">Username:</label>
 		<input type="text" id="username" name="username" required><br><br>
@@ -59,10 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<label for="password">Password:</label>
 		<input type="password" id="password" name="password" required><br><br>
 
-        <label for="password2">Re-Enter Password:</label>
+		<label for="password2">Re-Enter Password:</label>
 		<input type="password" id="password2" name="password2" required><br><br>
 
-        
 		<label for="studentID">Student ID:</label>
 		<input type="text" id="studentID" name="studentID" ><br><br>
 
@@ -70,4 +79,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</form>
 </body>
 </html>
+
 

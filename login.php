@@ -1,20 +1,6 @@
 <?php
 require("connect-db.php");
-// $global db
-// Connect to the database
-// $servername = "localhost";
-// $username = "yourusername";
-// $password = "yourpassword";
-// $dbname = "yourdatabase";
 
-// $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-
-// Check if form submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get username and password from form
     $username = $_POST["username"];
@@ -48,19 +34,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
 	<title>Login Form</title>
+	<style>
+		.login {
+			background-color: #ADE4DB;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+	</style>
 </head>
 <body>
-	<h2>Login Form</h2>
-	<form method="post" action="login.php">
-		<label for="username">Username:</label>
-		<input type="text" id="username" name="username" required><br><br>
+	<div class="login">
+		<h2>Login Form</h2>
+		<form method="post" action="login.php">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required><br><br>
 
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" required><br><br>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required><br><br>
 
-		<input type="submit" value="Login">
-	</form>
-	<p>New user? <a href="create_user.php">Create an account</a></p>
+			<input type="submit" value="Login">
+		</form>
+		<p>New user? <a href="create_user.php">Create an account</a></p>
+	</div>
 </body>
 </html>
+
 

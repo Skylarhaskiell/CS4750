@@ -1,79 +1,67 @@
 
-<?php
-// Connect to the database
-require("connect-db.php");
-global $db;
-
-// Check if form submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get user input from form
-    $firstName = $_POST["firstName"];
-    $lastName = $_POST["lastName"];
-    $studentID = $_POST["studentID"];
-    $year = $_POST["year"];
-    // Check if studentID exists in login table
-$sql = "SELECT * FROM login WHERE studentID = '$studentID'";
-$result = $db->query($sql);
-if ($result->rowCount() == 0) {
-
-    // Error message
-    echo "Student ID not found in login table";
-}
-// Insert data into student table
-if($result->rowCount() != 0){
-$sql = "INSERT INTO student (studentID, firstName, lastName,  year)  VALUES ('$studentID','$firstName', '$lastName',  '$year)";
-$db->query($sql);
-
-    $sql = "INSERT INTO student (firstName, lastName, studentID, year) VALUES ('$firstName', '$lastName', '$studentID', $year)";
-    $db->query($sql);   
-    
-}
-// Check if insertion was successful
-$sql = "SELECT * FROM student WHERE firstName = '$firstName' AND lastName = '$lastName'";
-$result = $db->query($sql);
-
-if ($result->rowCount() > 0) {
-    // Success message
-    echo "User created successfully!";
-    header('Location: index.html');
-    exit();
-}
-else {
-    // Error message
-    echo "Error creating user";
-    header('Location: student_details.php');
-    exit();
-}
-
-
-        }
-    
-
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Create User</title>
+	<title>Add Student</title>
+	<style>
+		body {
+			background-color: #FFEBEB;
+			text-align: center;
+		}
+		form {
+			display: inline-block;
+			text-align: left;
+		}
+	</style>
 </head>
 <body>
-	<h2>Create User</h2>
-	<form method="POST" action="student_details.php">
-        
+	<h1>Add Student</h1>
+	<form action="index.html" method="post">
 		<label for="studentID">Student ID:</label>
-		<input type="text" id="studentID" name="studentID" ><br><br>
-
+		<input type="text" name="studentID" id="studentID"><br>
 		<label for="firstName">First Name:</label>
-		<input type="text" id="firstName" name="firstName" required><br><br>
-
+		<input type="text" name="firstName" id="firstName"><br>
 		<label for="lastName">Last Name:</label>
-		<input type="text" id="lastName" name="lastName" required><br><br>
-
-        <label for="year"> Academic Year</label>
-		<input type="number" id="year" name="year" required><br><br>
-
-
-		<input onclick="window.location.href = 'student_details.php';" type="submit" value="Submit Info">
+		<input type="text" name="lastName" id="lastName"><br>
+		<label for="year">Year:</label>
+		<input type="number" name="year" id="year"><br>
+		<input type="submit" value="Add Student">
 	</form>
 </body>
 </html>
+
+
+
+
+<?php
+// Connect to the database
+require("connect-db.php");
+
+
+// Check if the form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	// Get the form data
+	$studentID = $_POST["studentID"];
+	$firstName = $_POST["firstName"];
+	$lastName = $_POST["lastName"];
+	$year = $_POST["year"];
+
+	// Check if the studentID is already in the database
+	$sql = "SELECT studentID FROM student WHERE studentID = '$studentID'";
+	$result = $db->query($sql);
+
+	if ($result->rowCount() > 0) {
+		// Display an error message if the studentID is already in the database
+		echo "Error: Student ID already exists in the database";
+	} else {
+		// Insert the new student into the database
+		$sql = "INSERT INTO student (studentID, firstName, lastName, year) VALUES ('$studentID', '$firstName', '$lastName', '$year')";
+		$db->query($sql);
+
+		// Redirect the user to index.html if the insertion was successful
+		header("Location: index.html");
+		exit();
+	}
+}
+
+?>
