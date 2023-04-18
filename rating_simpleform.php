@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     addRankAbout($classID);
     #refresh ratings
     $ratings = selectAllRatings();
-   
+    header("location:rating_simpleform.php");
   }
 
 }
