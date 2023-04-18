@@ -7,7 +7,7 @@ require("rating-db.php");
 $ratings = selectAllRatings();
 //var_dump($ratings);
 
-
+echo $_POST['course'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -76,20 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $sql = mysqli_query($connection, "SELECT DISTINCT classCode from class ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
           echo "<option>" . $row['classCode']. "</option>";
-        }
-      ?>
-  </select>
-  </div>
-
-  <div class="row mb-3 mx-3"> 
-    Professor: 
-    <select type="text" class="form-control" name = 'semester' required>
-      <option> SELECT PROFESSOR </option>
-      <?php 
-        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
-        $sql = mysqli_query($connection, "SELECT professorID from class");
-        while ($row = $sql->fetch_assoc()){
-          echo "<option>" . $row['professorID']. "</option>";
         }
       ?>
   </select>
@@ -174,7 +160,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div>  
 
 
- 
+ <br>
+ <br>
+ <br>
   
 </div>    
 </body>
