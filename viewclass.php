@@ -1,63 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">  
-  
-  <!-- 2. include meta tag to ensure proper rendering and touch zooming -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 
-  Bootstrap is designed to be responsive to mobile.
-  Mobile-first styles are part of the core framework.
-   
-  width=device-width sets the width of the page to follow the screen-width
-  initial-scale=1 sets the initial zoom level when the page is first loaded   
-  -->
-  
-  <meta name="author" content="Hannah Tuma">
-  <meta name="description" content="include some description about your page">  
-    
-  <title>Home</title>
-  
-  <!-- 3. link bootstrap -->
-  <!-- if you choose to use CDN for CSS bootstrap -->  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  
-  <!-- you may also use W3's formats -->
-  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
-  
-  <!-- 
-  Use a link tag to link an external resource.
-  A rel (relationship) specifies relationship between the current document and the linked resource. 
-  -->
-  
-  <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
-  
-  <!-- if you choose to download bootstrap and host it locally -->
-  <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
-  
-  <!-- include your CSS -->
-  <!-- <link rel="stylesheet" href="custom.css" />  -->
-       
+	<title>Class List</title>
+	<style>
+		.class-box {
+			border: 1px solid black;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.title-box {
+			background-color: #f28482;
+			color: white;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+		/* .class-list {
+			margin-top: 20px;
+			padding: 10px;
+			border: 1px solid black;
+		} */
+	</style>
 </head>
-
 <body>
-<div class="container">
-  <h1>Welcome to the class reviews</h1>  
 
- 
-
-
-
-
-
-  <!-- CDN for JS bootstrap -->
-  <!-- you may also use JS bootstrap to make the page dynamic -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+<?php
+	// Establish a database connection
+	require("connect-db.php");
+	global $db;
+	
+	// Display the selected professor's information
+	if (isset($_GET["classID"])) {
+		$professorID = $_GET["classID"];
+		$sql = "SELECT * FROM class WHERE classID = '$classID'";
+		$result = $db->query($sql);
   
-  <!-- for local -->
-  <!-- <script src="your-js-file.js"></script> -->  
+
+		if ($result->rowCount() > 0) {
+            ($row = $result->fetch(PDO::FETCH_ASSOC));
+            echo "<div class='class-box'>";
+            echo "<h2>" . $row["classID"] . " " . $row["classCode"] . "</h2>";
+            //need to fix line below
+            echo "<p>Class Rating: " . $row["class_rating"] . "</p>";
+            echo "<div class='class-list'>";
+            echo "<h3>Class Comments:</h3>";
+            echo "<ul>";
+            $sql = "SELECT c.content
+            FROM comments c
+            INNER JOIN classComment cc ON c.commentID = cc.commentID
+            WHERE cc.classID = '$classID' ";
+            
+			 $result = $db->query($sql);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                echo "<li>" . $row["classCode"] . " - " . $row["semester"] . " " . $row["year"] . "</li>";
+            }
+			echo "</ul>";
+			echo "</div>";
+			echo "</div>";
+		} else {
+			echo "Professor not found.";
+		}
+	}
+
+	// Query the database for all professors
+	$sql = "SELECT * FROM class order by classID";
+	$result = $db->query($sql);
+
+	// Display the dropdown with the list of professors
   
-</div>    
+	if ($result->rowCount() > 0) {
+		echo "<div class='container'>";
+		echo "<div class='title-box'><h2>Select a class to see its ratings</h2></div>";
+		echo "<form action=''>";
+		echo "<select name='classID'>";
+		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			echo "<option value='" . $row["classID"] . "'>" . $row["classCode"] . " " . $row["professorID"] . "</option>";
+		}
+		echo "</select>";
+		echo "<br><br>";
+		echo "<input type='submit' value='Select'>";
+		echo "</form>";
+		echo "</div>";
+	} else {
+		echo "No classes found.";
+	}
+?>
+
 </body>
 </html>

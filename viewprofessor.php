@@ -34,9 +34,13 @@
 	global $db;
 	
 	// Display the selected professor's information
-	if (isset($_GET["professorID"])) {
-		$professorID = $_GET["professorID"];
-		$sql = "SELECT * FROM professor WHERE professorID = '$professorID'";
+	// if (isset($_GET["professorID"])) {
+	// 	$professorID = $_GET["professorID"];
+	// 	$sql = "SELECT * FROM professor WHERE professorID = '$professorID'";
+	if (isset($_POST['search'])) {
+		$search = $_POST['search'];
+		// Search for professors whose first or last name matches the search query
+		$sql = "SELECT * FROM professor WHERE CONCAT(firstName, ' ', lastName) LIKE '%$search%' OR CONCAT(lastName, ' ', firstName) LIKE '%$search%' ORDER BY lastName";
 		$result = $db->query($sql);
 
 		if ($result->rowCount() > 0) {
@@ -72,20 +76,38 @@
 	// Display the dropdown with the list of professors
 	if ($result->rowCount() > 0) {
 		echo "<div class='container'>";
-		echo "<div class='title-box'><h2>Select a professor to see their ratings</h2></div>";
-		echo "<form action=''>";
-		echo "<select name='professorID'>";
-		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			echo "<option value='" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</option>";
-		}
-		echo "</select>";
-		echo "<br><br>";
-		echo "<input type='submit' value='Select'>";
+		echo "<div class='title-box'><h2>Search for a professor to see their ratings</h2></div>";
+		echo "<form action='' method='post'>";
+		echo "<input type='text' name='search' placeholder='Search by name'>";
+		echo "<input type='submit' value='Search'>";
 		echo "</form>";
-		echo "</div>";
-	} else {
-		echo "No professors found.";
+		if ($result->rowCount() > 0) {
+			echo "<ul>";
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				echo "<li><a href='professor.php?id=" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</a></li>";
+			}
+			echo "</ul>";
+		} 
 	}
+	else {
+			echo "No professors found.";
+		}
+		echo "</div>";
+		// echo "<div class='container'>";
+		// echo "<div class='title-box'><h2>Select a professor to see their ratings</h2></div>";
+		// echo "<form action=''>";
+		// echo "<select name='professorID'>";
+		// while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		// 	echo "<option value='" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</option>";
+		// }
+		// echo "</select>";
+		// echo "<br><br>";
+		// echo "<input type='submit' value='Select'>";
+		// echo "</form>";
+		// echo "</div>";
+	// } else {
+	// 	echo "No professors found.";
+	// }
 ?>
 
 </body>
