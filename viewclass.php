@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Class List</title>
+	<title>Professor List</title>
 	<style>
-		.class-box {
+		.professor-box {
 			border: 1px solid black;
 			padding: 10px;
 			margin-bottom: 20px;
@@ -19,76 +19,71 @@
 			padding: 10px;
 			margin-bottom: 20px;
 		}
-		/* .class-list {
+		.class-list {
 			margin-top: 20px;
 			padding: 10px;
 			border: 1px solid black;
-		} */
+		}
 	</style>
 </head>
 <body>
-
 <?php
 	// Establish a database connection
 	require("connect-db.php");
 	global $db;
-	
-	// Display the selected professor's information
-	if (isset($_GET["classID"])) {
-		$professorID = $_GET["classID"];
-		$sql = "SELECT * FROM class WHERE classID = '$classID'";
+
+	if (isset($_POST['search'])) {
+		$search = $_POST['search'];
+
+		// Search for classes whose classCode matches the search query
+		
+        $sql = "SELECT * from class where classCode like '%$search%' ";
 		$result = $db->query($sql);
-  
 
 		if ($result->rowCount() > 0) {
-            ($row = $result->fetch(PDO::FETCH_ASSOC));
-            echo "<div class='class-box'>";
-            echo "<h2>" . $row["classID"] . " " . $row["classCode"] . "</h2>";
-            //need to fix line below
-            echo "<p>Class Rating: " . $row["class_rating"] . "</p>";
-            echo "<div class='class-list'>";
-            echo "<h3>Class Comments:</h3>";
-            echo "<ul>";
-            $sql = "SELECT c.content
-            FROM comments c
-            INNER JOIN classComment cc ON c.commentID = cc.commentID
-            WHERE cc.classID = '$classID' ";
-            
-			 $result = $db->query($sql);
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<li>" . $row["classCode"] . " - " . $row["semester"] . " " . $row["year"] . "</li>";
-            }
-			echo "</ul>";
-			echo "</div>";
-			echo "</div>";
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				echo "<div class='professor-box'>";
+				echo "<h2>" . $row["classCode"] . "</h2>";
+				// echo "<p>Professor: " . $row["firstName"] . " " . $row["lastName"] . "</p>";
+
+				// Get all comments and ratings for this class
+				$sql = "SELECT class.classID, class.classCode, class.semester, class.year, professor.firstName, professor.lastName
+					FROM class
+					JOIN professor ON professor.professorID = class.professorID
+					WHERE class.classCode LIKE '%$search%'";
+				// $sql = "SELECT * FROM rating WHERE classID = " . $row["classID"];
+					$ratings_result = $db->query($sql);
+
+				if ($ratings_result->rowCount() > 0) {
+					echo "<div class='class-list'>";
+					
+					echo "<h3>Comments and Ratings:</h3>";
+					while ($rating_row = $ratings_result->fetch(PDO::FETCH_ASSOC)) {
+						echo "<p>" . $rating_row["comment"] . "</p>";
+						echo "<p>Rating: " . $rating_row["rating"] . "</p>";
+					}
+					echo "</div>";
+				} else {
+					echo "<div class='class-list'>";
+					echo "<p>No ratings for this class yet.</p>";
+					echo "</div>";
+				}
+				echo "</div>";
+			}
 		} else {
-			echo "Professor not found.";
+			echo "Class not found.";
 		}
 	}
 
-	// Query the database for all professors
-	$sql = "SELECT * FROM class order by classID";
-	$result = $db->query($sql);
+	// Display the search form
+	echo "<div class='container'>";
+	echo "<div class='title-box'><h2>Search for a class to see its ratings</h2></div>";
+	echo "<form action='' method='post'>";
+	echo "<input type='text' name='search' placeholder='Search by class code'>";
+	echo "<input type='submit' value='Search'>";
+	echo "</form>";
+	echo "</div>";
 
-	// Display the dropdown with the list of professors
-  
-	if ($result->rowCount() > 0) {
-		echo "<div class='container'>";
-		echo "<div class='title-box'><h2>Select a class to see its ratings</h2></div>";
-		echo "<form action=''>";
-		echo "<select name='classID'>";
-		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			echo "<option value='" . $row["classID"] . "'>" . $row["classCode"] . " " . $row["professorID"] . "</option>";
-		}
-		echo "</select>";
-		echo "<br><br>";
-		echo "<input type='submit' value='Select'>";
-		echo "</form>";
-		echo "</div>";
-	} else {
-		echo "No classes found.";
-	}
 ?>
-
 </body>
 </html>
