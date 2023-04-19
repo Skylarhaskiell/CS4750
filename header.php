@@ -17,20 +17,26 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">Course Forum Dupe</a>
+          <a class="navbar-brand" href="index.php">CS Forum</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                <a class="nav-link active" aria-current="page" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="rating_simpleform.php">Ratings</a>
+                <a class="nav-link active" href="rating_simpleform.php">My Ratings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="simpleform.php">Comments</a>
+                <a class="nav-link active" href="simpleform.php">My Comments</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="viewclass.php">Reviews By Class</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="viewprofessor.php">Reviews By Professor</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

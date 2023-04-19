@@ -1,3 +1,4 @@
+<?php include 'header.php';?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html>
@@ -46,6 +47,7 @@
 </head>
 
 <body>
+  
 <div class="container" >
   <h1 class = 'header'>Welcome to the Course Rating Page</h1>  
 
