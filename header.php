@@ -15,27 +15,43 @@
 <body>
   <!-- source for navbar: https://getbootstrap.com/docs/5.0/components/navbar/ -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">Course Forum Dupe</a>
+          <a class="navbar-brand" href="index.php">CS Forum</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                <a class="nav-link" aria-current="page" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="rating_simpleform.php">Ratings</a>
+                <a class="nav-link" href="rating_simpleform.php">Add Rating</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="simpleform.php">Comments</a>
+                <a class="nav-link" href="simpleform.php">Add Comment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="viewclass.php">Reviews By Class</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="viewprofessor.php">Reviews By Professor</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li>
             </ul>
+            <div class="collapse navbar-collapse justify-content-end">
+              <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="login.php">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="create_user.php">Sign Up</a>
+              </li>
+            </ul>
+          </div>
           </div>
         </div>
       </nav>

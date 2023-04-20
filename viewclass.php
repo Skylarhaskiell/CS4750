@@ -1,3 +1,5 @@
+<?php include 'header.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +34,9 @@
   
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
   <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
   
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 

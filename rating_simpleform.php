@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <body>
   
 <div class="container">
-  <h1>Course Rating</h1>  
+  <h1>Add Course Rating</h1>  
   <form name="mainForm" action="rating_simpleform.php" method="post">  
   <div class="row mb-3 mx-3">
     ComputingID:
@@ -89,19 +89,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <div class="row mb-3 mx-3">
     Overall Rating:
-    <input type="text" class="form-control" name="overall_rating" required />        
+    <input type="number" class="form-control" name="overall_rating" min="1" max="5" required />        
   </div>
   <div class="row mb-3 mx-3">
     Hours spent on assignments per week:
-    <input type="text" class="form-control" name="hours_per_week_assignments" required />        
+    <input type="number" class="form-control" name="hours_per_week_assignments" min="0" max="168" required />        
   </div>
   <div class="row mb-3 mx-3">
     Hours spent studying per week:
-    <input type="text" class="form-control" name="hours_per_week_study" required />        
+    <input type="number" class="form-control" name="hours_per_week_study" min="0" max="168" required />        
   </div>
   <div class="row mb-3 mx-3">
     Number of assignments:
-    <input type="text" class="form-control" name="num_assignments" required />        
+    <input type="number" class="form-control" name="num_assignments" min="0" required />        
   </div>
   <div class="row mb-3 mx-3">
   <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
