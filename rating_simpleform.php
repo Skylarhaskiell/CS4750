@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <body>
   
 <div class="container">
-  <h1>Course Rating</h1>  
+  <h1>Add Course Rating</h1>  
   <form name="mainForm" action="rating_simpleform.php" method="post">  
   <div class="row mb-3 mx-3">
     ComputingID:

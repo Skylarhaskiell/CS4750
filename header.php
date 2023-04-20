@@ -27,10 +27,10 @@
                 <a class="nav-link" aria-current="page" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="rating_simpleform.php">My Ratings</a>
+                <a class="nav-link" href="rating_simpleform.php">Add Rating</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="simpleform.php">My Comments</a>
+                <a class="nav-link" href="simpleform.php">Add Comment</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="viewclass.php">Reviews By Class</a>
