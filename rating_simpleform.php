@@ -69,43 +69,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <div class="row mb-3 mx-3"> 
     Course: 
-    <select type="text" class="form-control" name = 'course' required>
-      <option> SELECT COURSE </option>
-      <?php 
+    <select type="text" class="form-control" name="course" required>
+        <option> SELECT COURSE </option>
+        <?php 
         $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
         $sql = mysqli_query($connection, "SELECT DISTINCT SUBSTRING(classCode, 1,6) as classSubstring, professorID, classCode from class ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
-          if($row['professorID'] != ""){
-            echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - " . $row['professorID'] ."</option>";
-          }
-          else{
-            echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - Unknown Professor" ."</option>";
-          }
+            if($row['professorID'] != ""){
+                echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - " . $row['professorID'] ."</option>";
+            }
+            else{
+                echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - Unknown Professor" ."</option>";
+            }
         }
-      ?>
-  </select>
-  </div>
-
-
-  <div class="row mb-3 mx-3">
-    Overall Rating:
-    <input type="text" class="form-control" name="overall_rating" required />        
-  </div>
-  <div class="row mb-3 mx-3">
-    Hours spent on assignments per week:
-    <input type="text" class="form-control" name="hours_per_week_assignments" required />        
-  </div>
-  <div class="row mb-3 mx-3">
-    Hours spent studying per week:
-    <input type="text" class="form-control" name="hours_per_week_study" required />        
-  </div>
-  <div class="row mb-3 mx-3">
-    Number of assignments:
-    <input type="text" class="form-control" name="num_assignments" required />        
-  </div>
-  <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
+        ?>
+    </select>
 </div>
+<div class="row mb-3 mx-3">
+    Overall Rating:     
+    <select type="text" class="form-control" name="overall_rating" required>
+        <?php
+        for($i = 1; $i <= 5; $i++){
+            echo "<option value='" . $i . "'>" . $i . "</option>";
+        }
+        ?>
+    </select>    
+</div>
+<div class="row mb-3 mx-3">
+    Hours spent on assignments per week:
+    <select type="text" class="form-control" name="hours_per_week_assignments" required>
+        <?php
+        for($i = 1; $i <= 25; $i++){
+            echo "<option value='" . $i . "'>" . $i . "</option>";
+        }
+        ?>
+    </select>     
+</div>
+<div class="row mb-3 mx-3">
+    Hours spent studying per week:
+   
+    <select type="text" class="form-control" name="hours_per_week_study" required>
+        <?php
+        for($i = 1; $i <= 25; $i++){
+            echo "<option value='" . $i . "'>" . $i . "</option>";
+        }
+        ?>
+    </select>          
+</div>
+<div class="row mb-3 mx-3">
+    Number of assignments per week:
+    <select type="text" class="form-control" name="num_assignments" required>
+        <?php
+        for($i = 1; $i <= 10; $i++){
+            echo "<option value='" . $i . "'>" . $i . "</option>";
+        }
+        ?>
+    </select>       
+</div>
+<div class="row mb-3 mx-3">
+    <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
+</div>
+</form> 
+
 
 </form>  
 

@@ -59,8 +59,11 @@
             
 			 $result = $db->query($sql);
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				echo "<a href='download-reviews.php?professorID=" . $row["professorID"] . "'>Download Reviews</a>";
+
                 echo "<li>" . $row["classCode"] . " - " . $row["semester"] . " " . $row["year"] . "</li>";
             }
+
 			echo "</ul>";
 			echo "</div>";
 			echo "</div>";
@@ -109,6 +112,43 @@
 	// 	echo "No professors found.";
 	// }
 ?>
+<?php
+// Establish a database connection
+require("connect-db.php");
+global $db;
+
+// Get the professorID parameter from the URL
+if (isset($_GET["professorID"])) {
+    $professorID = $_GET["professorID"];
+    
+    // Query the database for the professor's reviews
+    $sql = "SELECT * FROM review WHERE professorID = '$professorID'";
+    $result = $db->query($sql);
+
+    if ($result->rowCount() > 0) {
+        // Set the headers for the CSV file
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=reviews.csv');
+
+        // Create a file pointer connected to the output stream
+        $output = fopen('php://output', 'w');
+
+        // Write the headers to the CSV file
+        fputcsv($output, array('Review ID', 'Rating', 'Comment'));
+
+        // Loop through the results and write them to the CSV file
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            fputcsv($output, array($row["reviewID"], $row["rating"], $row["comment"]));
+        }
+        
+        // Close the file pointer
+        fclose($output);
+    } else {
+        echo "No reviews found.";
+    }
+}
+?>
+
 
 </body>
 </html>
