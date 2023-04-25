@@ -27,7 +27,8 @@
 	</style>
 </head>
 <body>
-
+<?php include 'header.php';
+?>
 <?php
 	// Establish a database connection
 	require("connect-db.php");
@@ -96,21 +97,7 @@
 			echo "No professors found.";
 		}
 		echo "</div>";
-		// echo "<div class='container'>";
-		// echo "<div class='title-box'><h2>Select a professor to see their ratings</h2></div>";
-		// echo "<form action=''>";
-		// echo "<select name='professorID'>";
-		// while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		// 	echo "<option value='" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</option>";
-		// }
-		// echo "</select>";
-		// echo "<br><br>";
-		// echo "<input type='submit' value='Select'>";
-		// echo "</form>";
-		// echo "</div>";
-	// } else {
-	// 	echo "No professors found.";
-	// }
+		
 ?>
 <?php
 // Establish a database connection

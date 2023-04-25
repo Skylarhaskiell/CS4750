@@ -27,6 +27,8 @@
 	</style>
 </head>
 <body>
+<?php include 'header.php';
+?>
 <?php
 	// Establish a database connection
 	require("connect-db.php");
