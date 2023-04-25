@@ -72,14 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <select type="text" class="form-control" name = 'course' required>
       <option> SELECT COURSE </option>
       <?php 
-        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_b");
-        $sql = mysqli_query($connection, "SELECT DISTINCT SUBSTRING(classCode, 1,6) as classSubstring, professorID, classCode from class ORDER BY classCode");
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_c");
+        $sql = mysqli_query($connection, "SELECT DISTINCT classCode, firstName, lastName, professorID from class NATURAL JOIN professor ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
           if($row['professorID'] != ""){
-            echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - " . $row['professorID'] ."</option>";
+            echo "<option value='" . $row['classCode'] ."'>" . $row['classCode']. " - " . $row['firstName'] . " " . $row['lastName'] ."</option>";
           }
           else{
-            echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - Unknown Professor" ."</option>";
+            echo "<option value='" . $row['classCode'] ."'>" . $row['classCode']. " - Unknown Professor" ."</option>";
           }
         }
       ?>
