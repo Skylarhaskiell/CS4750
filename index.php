@@ -1,3 +1,4 @@
+<?php include 'header.php';?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html>
@@ -35,6 +36,7 @@
   <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
@@ -46,6 +48,7 @@
 </head>
 
 <body>
+  
 <div class="container" >
   <h1 class = 'header'>Welcome to the Course Rating Page</h1>  
 
