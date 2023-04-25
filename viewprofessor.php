@@ -1,5 +1,4 @@
-<?php include 'header.php';
-?>
+
 
 <!DOCTYPE html>
 <html>
@@ -85,13 +84,13 @@
 		echo "<input type='text' name='search' placeholder='Search by name'>";
 		echo "<input type='submit' value='Search'>";
 		echo "</form>";
-		if ($result->rowCount() > 0) {
-			echo "<ul>";
-			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				echo "<li><a href='professor.php?id=" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</a></li>";
-			}
-			echo "</ul>";
-		} 
+		// if ($result->rowCount() > 0) {
+			// echo "<ul>";
+			// while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			// 	echo "<li><a href='professor.php?id=" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</a></li>";
+			// }
+			// echo "</ul>";
+		// } 
 	// }
 	// else {
 	// 		echo "No professors found.";

@@ -7,7 +7,7 @@ require("rating-db.php");
 $ratings = selectAllRatings();
 //var_dump($ratings);
 
-echo $_POST['course'];
+// echo $_POST['course'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -58,16 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 <body>
   
-<div class="container">
+<div class="container" style="background-color: #e3f2fd;">
   <h1>Add Course Rating</h1>  
   <form name="mainForm" action="rating_simpleform.php" method="post">  
-  <div class="row mb-3 mx-3">
+  <div class="row mb-3 mx-3"style="background-color: #f6bd60;">
     ComputingID:
     <input type="text" class="form-control" name="computingID" required />        
   </div>
 
 
-  <div class="row mb-3 mx-3"> 
+  <div class="row mb-3 mx-3"style="background-color: #f6bd60;"> 
     Course: 
     <select type="text" class="form-control" name="course" required>
         <option> SELECT COURSE </option>
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ?>
     </select>
 </div>
-<div class="row mb-3 mx-3">
+<div class="row mb-3 mx-3"style="background-color: #f6bd60;">
     Overall Rating:     
     <select type="text" class="form-control" name="overall_rating" required>
         <?php
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ?>
     </select>    
 </div>
-<div class="row mb-3 mx-3">
+<div class="row mb-3 mx-3"style="background-color: #f6bd60;">
     Hours spent on assignments per week:
     <select type="text" class="form-control" name="hours_per_week_assignments" required>
         <?php
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ?>
     </select>     
 </div>
-<div class="row mb-3 mx-3">
+<div class="row mb-3 mx-3"style="background-color: #f6bd60;">
     Hours spent studying per week:
    
     <select type="text" class="form-control" name="hours_per_week_study" required>
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         ?>
     </select>          
 </div>
-<div class="row mb-3 mx-3">
+<div class="row mb-3 mx-3"style="background-color: #f6bd60;">
     Number of assignments per week:
     <select type="text" class="form-control" name="num_assignments" required>
         <?php
@@ -128,8 +128,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     </select>       
 
 </div>
-<div class="row mb-3 mx-3">
-    <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
+<div class="row mb-3 mx-3"style="background-color: #f6bd60;">
+    <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating"style="background-color: #f6bd60;">
 </div>
 </form> 
 

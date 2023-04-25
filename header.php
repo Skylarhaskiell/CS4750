@@ -38,12 +38,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="viewprofessor.php">Reviews By Professor</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="viewprofessor.php">View Professor Ratings</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="viewclass.php">View Class Comments</a>
-              </li>
+              
               <!-- <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> -->

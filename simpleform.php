@@ -65,19 +65,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <h1>Add Comment</h1>  
 
   <form name="mainForm" action="simpleform.php" method="post">   
-    <div class="row mb-3 mx-3">    
+    <div class="row mb-3 mx-3"style="background-color: #f5cac3;">    
     studentID:
     <input type="text" class="form-control" name="studentID" required 
     value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['studentID'];?>"
     /> 
     </div>
-    <div class="row mb-3 mx-3">  
+    <div class="row mb-3 mx-3"style="background-color: #f5cac3;">  
     date_posted:
     <input type="text" class="form-control" name="date_posted" required 
     value="<?php echo date("Y-m-d")?> <?php if ($class_info_to_update !=null) echo $class_info_to_update['date_posted'];?>"
     />   
     </div>
-    <div class="row mb-3 mx-3">
+    <div class="row mb-3 mx-3"style="background-color: #f5cac3;">
     content:
     <input type="text" class="form-control" name="content" required 
     value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['content'];?>"
@@ -86,10 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   </div> 
   <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add comment" title="click to insert comment"/> 
+  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add comment" title="click to insert comment"style="background-color: #f5cac3;"/> 
 </div>
 <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-dark" name="actionBtn" value="Confirm update" title="click to confirm update"/> 
+  <input type="submit" class="btn btn-dark" name="actionBtn" value="Confirm update" title="click to confirm update"style="background-color: #f5cac3;"/> 
 </div>
 </form> 
 
