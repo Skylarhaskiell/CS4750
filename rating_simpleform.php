@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <body>
   
 <div class="container">
-  <h1>Course Rating</h1>  
+  <h1>Add Course Rating</h1>  
   <form name="mainForm" action="rating_simpleform.php" method="post">  
   <div class="row mb-3 mx-3">
     ComputingID:
@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 echo "<option value='" . $row['classCode'] ."'>" . $row['classSubstring']. " - Unknown Professor" ."</option>";
             }
         }
+
         ?>
     </select>
 </div>
@@ -125,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
         ?>
     </select>       
+
 </div>
 <div class="row mb-3 mx-3">
     <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
