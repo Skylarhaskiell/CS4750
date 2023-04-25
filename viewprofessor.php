@@ -34,10 +34,6 @@
 	require("connect-db.php");
 	global $db;
 	
-	// Display the selected professor's information
-	// if (isset($_GET["professorID"])) {
-	// 	$professorID = $_GET["professorID"];
-	// 	$sql = "SELECT * FROM professor WHERE professorID = '$professorID'";
 	if (isset($_POST['search'])) {
 		$search = $_POST['search'];
 		// Search for professors whose first or last name matches the search query
@@ -74,11 +70,11 @@
 	}
 
 	// Query the database for all professors
-	$sql = "SELECT * FROM professor order by lastName";
-	$result = $db->query($sql);
+	// $sql = "SELECT * FROM professor order by lastName";
+	// $result = $db->query($sql);
 
-	// Display the dropdown with the list of professors
-	if ($result->rowCount() > 0) {
+	// // Display the dropdown with the list of professors
+	// if ($result->rowCount() > 0) {
 		echo "<div class='container'>";
 		echo "<div class='title-box'><h2>Search for a professor to see their ratings</h2></div>";
 		echo "<form action='' method='post'>";
@@ -92,10 +88,10 @@
 			}
 			echo "</ul>";
 		} 
-	}
-	else {
-			echo "No professors found.";
-		}
+	// }
+	// else {
+	// 		echo "No professors found.";
+	// 	}
 		echo "</div>";
 		
 ?>
