@@ -54,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		form {
 			text-align: center;
 			margin-top: 50px;
+            outline: 2px dashed grey;
 		}
 	</style>
 </head>

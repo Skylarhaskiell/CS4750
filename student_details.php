@@ -11,6 +11,7 @@
 		form {
 			display: inline-block;
 			text-align: left;
+            outline: 2px dashed grey;
 		}
 	</style>
 </head>
