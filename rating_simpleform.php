@@ -4,10 +4,11 @@
 require("connect-db.php");
 require("rating-db.php");
 
+
 $ratings = selectAllRatings();
 //var_dump($ratings);
+echo $professorID;
 
-echo $_POST['course'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -18,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     #add to ranks table
     addRanks($_POST['computingID']);
     # retrieving class ID
-    $classID = (int)getClassID($_POST['course']);
+    $classID = (int)getClassID($_POST['course'], $professorID);
     #add to rankAbout table
-    addRankAbout($classID);
+    addRankAbout($_POST['course']);
     #refresh ratings
     $ratings = selectAllRatings();
     header("location:rating_simpleform.php");
@@ -73,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       <option> SELECT COURSE </option>
       <?php 
         $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_c");
-        $sql = mysqli_query($connection, "SELECT DISTINCT classCode, firstName, lastName, professorID from class NATURAL JOIN professor ORDER BY classCode");
+        $sql = mysqli_query($connection, "SELECT classID, classCode, firstName, lastName, professorID from class NATURAL JOIN professor ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
           if($row['professorID'] != ""){
-            echo "<option value='" . $row['classCode'] ."'>" . $row['classCode']. " - " . $row['firstName'] . " " . $row['lastName'] ."</option>";
+            echo "<option value='" . $row['classID'] . "'>" . $row['classCode']. " - " . $row['firstName'] . " " . $row['lastName'] ."</option>";
           }
           else{
-            echo "<option value='" . $row['classCode'] ."'>" . $row['classCode']. " - Unknown Professor" ."</option>";
+            echo "<option value='" . $row['classID'] . "'>" . $row['classCode']. " - Unknown Professor" ."</option>";
           }
         }
       ?>
@@ -114,8 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <thead>
   <tr style="background-color:#B0B0B0">
     <th>Course        
-    <th>Semester        
-    <th>Year 
     <th>Professor 
     <th>Rating
     <th>Hours On Assignments/Week   
@@ -126,9 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <?php foreach ($ratings as $rating): ?>
   <tr>
      <td><?php echo $rating['classCode']; ?></td>
-     <td><?php echo $rating['semester']; ?></td>        
-     <td><?php echo $rating['year']; ?></td>  
-     <td><?php echo $rating['professorID']; ?></td> 
+     <td><?php echo $rating['firstName'] . " " . $rating['lastName']; ?></td> 
      <td><?php echo $rating['overall_rating']; ?></td>    
      <td><?php echo $rating['hours_assignment_per_week']; ?></td>    
      <td><?php echo $rating['hours_studying_per_week']; ?></td>  

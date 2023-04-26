@@ -29,7 +29,7 @@ function addRanks($studentID)
 
 #function to get classID from classCode
 
-function getClassID($classCode) {
+function getClassID($classCode, $professorID) {
     global $db;
     $query1 = "SELECT classID from class where classCode = :classCode";
     $statement1 = $db->prepare($query1);
@@ -37,6 +37,7 @@ function getClassID($classCode) {
     $statement1->execute();
     $classID = $statement1->fetch();
     $statement1->closeCursor();
+    echo $classCode;
     return $classID[0];
 }
 
@@ -55,7 +56,7 @@ function addRankAbout($classID) {
 function selectAllRatings()
 {
     global $db;
-    $query = "SELECT classCode, semester, year, professorID, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM class NATURAL JOIN rankAbout NATURAL JOIN rating";
+    $query = "SELECT classCode, firstName, lastName, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM professor NATURAL JOIN class NATURAL JOIN rankAbout NATURAL JOIN rating";
     $statement = $db->prepare($query);
     $statement->execute();
     $results = $statement->fetchAll();
