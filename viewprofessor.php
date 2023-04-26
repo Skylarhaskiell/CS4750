@@ -49,7 +49,7 @@
 
 
 			global $db;
-			$query1 = "SELECT avg(overall_rating) as RATE from rating natural join rankAbout natural join class where professorID = '$row[professorID]'";
+			$query1 = "SELECT avg(overall_rating) as RATE, avg(hours_assignment_per_week) as WEEKLY from rating natural join rankAbout natural join class where professorID = '$row[professorID]'";
 			$statement1 = $db->prepare($query1);
 			$statement1->execute();
 			$rating = $statement1->fetch();
@@ -61,8 +61,19 @@
 			else{
 				$prof_rating = "No Ratings Yet";
 			}
-            echo "<p>Instructor Rating: " . $row["instructor_rating"] . "</p>";
+
+			if ($rating[1] > 0) {
+				$weekly_hours = $rating[1];
+			}
+			else{
+				$weekly_hours = "No Ratings Yet";
+			}
+
+
+            echo "Instructor Rating: ";
 			echo $prof_rating;
+			echo "<br> <br> Average Hours Spent on Assignments Weekly: ";
+			echo $weekly_hours;
             echo "<div class='class-list'>";
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
