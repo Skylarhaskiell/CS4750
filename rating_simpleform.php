@@ -7,7 +7,7 @@ require("rating-db.php");
 
 $ratings = selectAllRatings();
 //var_dump($ratings);
-echo $professorID;
+// echo $professorID;
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
