@@ -9,4 +9,16 @@ function checkLogin($username, $userPassword){
     $statement->closeCursor();
 }
 
+# function to get studentID of user after they login
+function getStudentID($username, $pwd) {
+	global $db;
+	$query = "SELECT studentID FROM login WHERE username = :username AND userPassword = :pwd";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->bindValue(':pwd', $pwd);
+	$result = $statement->fetch();
+	$statement->closeCursor();
+	return $result;
+}
+
 ?>

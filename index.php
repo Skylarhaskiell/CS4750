@@ -1,4 +1,5 @@
-<?php include 'header.php';?>
+<?php include 'header.php';
+?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,7 @@
   <meta name="description" content="include some description about your page">  
     
   <title>Home</title>
+  <?php echo $user?>
   
   <!-- 3. link bootstrap -->
   <!-- if you choose to use CDN for CSS bootstrap -->  

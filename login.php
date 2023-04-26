@@ -1,10 +1,14 @@
 <?php
 require("connect-db.php");
+require("login-db.php");
+
+global $user;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get username and password from form
     $username = $_POST["username"];
     $password = $_POST["password"];
+	$password = sha1($password);
 
     // Check if user exists in database
     $sql = "SELECT * FROM login WHERE username = '$username' AND userPassword = '$password'";
@@ -14,7 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->rowCount() > 0) {
         // User exists, show success message
         echo "Login successful!";
-        header('Location: index.html');
+		# the current user that is logged in
+		$user = getStudentID($username, $pwd);
+        header('Location: index.php');
         exit();
         
     } else {
