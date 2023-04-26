@@ -15,6 +15,7 @@ function addRating($overall, $hours_a, $hours_s, $num_a)
     $statement->closeCursor();
 }
 
+
 #function to update ranks table when rating is added
 
 function addRanks($studentID)
@@ -41,6 +42,18 @@ function getClassID($classCode, $professorID) {
     return $classID[0];
 }
 
+// function getClassCode ($classID){
+//     global $db;
+//     $query1 = "SELECT classCode from classCode where classID = :classID";
+//     $statement1 = $db->prepare($query1);
+//     $statement1->bindValue(':classID', $classID);
+//     $statement1->execute();
+//     $classID = $statement1->fetch();
+//     $statement1->closeCursor();
+//     echo $classID;
+//     return $classCode[0];
+// }
+
 # function to update rankAbout table when rating is added
 function addRankAbout($classID) {
     global $db;
@@ -66,16 +79,16 @@ function selectAllRatings()
 
 # function to select all classCode and use it in dropdown menu
 
-function getClassCode()
-{
-    global $db;
-    $query = "SELECT classCode FROM class";
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $results = $statment->fetchAll();
-    $statement->closeCursor();
-    return $results;
-}
+// function getClassCode()
+// {
+//     global $db;
+//     $query = "SELECT classCode FROM class";
+//     $statement = $db->prepare($query);
+//     $statement->execute();
+//     $results = $statment->fetchAll();
+//     $statement->closeCursor();
+//     return $results;
+// }
 
 #debugging function
 function debug_to_console($data) {

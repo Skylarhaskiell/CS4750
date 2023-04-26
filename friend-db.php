@@ -13,12 +13,12 @@ function addFriend($name,$major, $year)
     $statement->closeCursor();
 };
 // Create a new comment
-function createComment($commentID, $studentID, $date_posted, $content) {
+function createComment( $studentID, $date_posted, $content) {
     // Establish database connection
     global $db;
-    $query = "insert into comments values (:commentID, :studentID, :date_posted, :content)";
+    $query = "INSERT into comments (studentID, date_posted, content) values (:studentID, :date_posted, :content)";
 	$statement = $db->prepare($query);
-	$statement->bindValue('commentID', $commentID);
+	
 	$statement->bindValue('studentID', $studentID);
 	$statement->bindValue('date_posted', $date_posted);
 	$statement->bindValue('content', $content);
@@ -26,7 +26,40 @@ function createComment($commentID, $studentID, $date_posted, $content) {
     $statement->closeCursor();
     
 }
+function getClassCode($classID) {
+    global $db;
+    $query1 = "SELECT classCode from classCode where classID = :classID";
+    $statement1 = $db->prepare($query1);
+    $statement1->bindValue(':classID', $classID);
+    $statement1->execute();
+	$classID = $statement1->fetch();
+    $statement1->closeCursor();
+	return $classID[0];
+}
 
+function addclassComment  ( $classID )
+{
+    global $db;
+    $query = "INSERT INTO classComment (classID) values ( :classID)";
+    $statement = $db->prepare($query);
+   
+    $statement->bindValue(':classID', $classID);
+
+    $statement->execute();
+    $statement->closeCursor();
+
+}
+function addStudentComment ($studentID ){
+	global $db;
+    $query = "INSERT into studentComment (studentID) values (:studentID)";
+    $statement = $db->prepare($query);
+   
+    $statement->bindValue(':studentID', $studentID);
+
+    $statement->execute();
+    $statement->closeCursor();
+
+}
 function selectAllFriends()
 {
     //db

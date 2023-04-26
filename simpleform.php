@@ -3,7 +3,10 @@
 <?php
 require("connect-db.php");
 require("friend-db.php");
+require("rating-db.php");
 $comments = selectAllComments();
+// echo $professorID;
+
 //$friends = selectAllFriends();
 //var_dump($friends);
 $friend_info_to_update = null;
@@ -19,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
   {
-    createComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
+    // $classID = (int)getClassID($_POST['classID'], $professorID);
+    // $classCode = ($_POST['classID']);
+    $classCode = getClassCode($_POST['classID']);
+    createComment( $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
+    addclassComment(  $_POST['classID']);
+    addStudentComment($_POST['studentID']);
     //$friends = selectAllFriends();
     $comments = selectAllComments();
   }
@@ -71,6 +79,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['studentID'];?>"
     /> 
     </div>
+    <div class="row mb-3 mx-3"> 
+    Course: 
+    <select type="text" class="form-control" name = 'classID' required>
+      <option> SELECT COURSE </option>
+      <?php 
+        $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_c");
+        $sql = mysqli_query($connection, "SELECT classID, classCode, firstName, lastName, professorID from class NATURAL JOIN professor ORDER BY classCode");
+        while ($row = $sql->fetch_assoc()){
+          if($row['professorID'] != ""){
+            echo "<option value='" . $row['classID'] . "'>" . $row['classCode']. " - " . $row['firstName'] . " " . $row['lastName'] ."</option>";
+          }
+          else{
+            echo "<option value='" . $row['classID'] . "'>" . $row['classCode']. " - Unknown Professor" ."</option>";
+          }
+        }
+      ?>
+  </select>
+  </div>
     <div class="row mb-3 mx-3">  
     date_posted:
     <input type="text" class="form-control" name="date_posted" required 
@@ -101,7 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
   <thead>
   <tr style="background-color:#B0B0B0">
-    <th width="15%">Student ID</th>        
+  <th width="15%">Course</th>  
+    <th width="15%">Student ID</th>  
+        
     <th width="15%">Date</th> 
     <th width="60%">Comment</th> 
     <th>Update?</th>
@@ -110,7 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   </thead>
 <?php foreach ($comments as $item): ?>
   <tr>
+     <td><?php echo $item['classCode'] ; ?></td>
      <td><?php echo $item['studentID']; ?></td>
+     
      <td><?php echo $item['date_posted']; ?></td>        
      <td><?php echo $item['content']; ?></td>
      <td>
