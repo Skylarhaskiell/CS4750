@@ -54,8 +54,7 @@
     if (!empty($result)) {
       foreach ($result as $row) {
         echo "<div class='professor-box'>";
-        echo "<h2>" . $row["classCode"] . "</h2>";
-        echo "<p>Taught by " . $row["firstName"] . " " . $row["lastName"] . "</p>";
+        echo "<h2>" . $row["classCode"] . " with " . $row["firstName"] . " " . $row["lastName"] . "</h2>";
 
         $current_class = $row["classID"];
     //      echo "<h3>Ratings:</h3>";
@@ -69,32 +68,40 @@
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':classID', $current_class);
         $stmt->execute();
-        $ratings_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $comment_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
         $sql = "SELECT * FROM class natural join professor natural join (rating natural join rankAbout) where classID = :classID";
-        //$sql = "SELECT * FROM class natural join professor natural join (comments  natural join classComment) where classID = :classID";
-        
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':classID', $current_class);
         $stmt->execute();
-        $class_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($ratings_result)) {
-          echo "<div class='class-list'>";
-          echo "<div class='class-list'>
-          <h3>Comments and Ratings:</h3>";
-          foreach ($ratings_result as $rating_row) {
-            echo "Reviews:";
-            echo "<p>" . $rating_row["content"] . "</p>";
+        $rating_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        echo "<h4>Reviews:</h4>";
+        if ($comment_result[0]) {
+          foreach ($comment_result as $comment_row) {
+            echo $comment_row["content"] . "<br>";
+            echo $comment_row['date_posted'] . "<br><br>";
           }
-          foreach( $class_result as $comment_row){
-            echo "Comments:";
-            echo "<p>" . $comment_row["content"] . "</p>";
-          }
-          echo "</div>";
-        } else {
-          echo "<div class='class-list'>";
+        } 
+        
+        else {
           echo "<p>No comments for this class yet.</p>";
-          echo "</div>";
         }
+        echo "<h4>Ratings:</h4>";
+        if ($rating_result[0]) {
+          foreach ($rating_result as $rating_row) {
+            echo "Overall Rating: " . $rating_row["overall_rating"] . "<br>";
+            echo "Weekly Hours on Assignments: " . $rating_row["hours_assignment_per_week"] . "<br>";
+            echo "Weekly Hours Studying: " . $rating_row["hours_studying_per_week"] . "<br>";
+            echo "Number of Assignments: " . $rating_row["num_assignments"] . "<br><br>";
+          }
+        } 
+        else {
+          echo "<p>No ratings for this class yet.</p>";
+        }
+
+
         echo "</div>";
       }
     } else {
