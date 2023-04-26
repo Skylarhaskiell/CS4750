@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$db->query($sql);
 
 		// Redirect the user to index.html if the insertion was successful
-		header("Location: index.html");
+		header("Location: index.php");
 		exit();
 	}
 }

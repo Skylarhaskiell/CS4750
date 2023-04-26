@@ -51,18 +51,18 @@
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
             // Join the class table with the professor table using professorID as the key
-            $sql = "SELECT class.classID, class.classCode, class.semester, class.year, professor.professorID
-            FROM class
-            JOIN professor ON professor.professorID = class.professorID
-            WHERE CONCAT(professor.firstName, ' ', professor.lastName) = '$row[professorID]'";
-           
-             $result = $db->query($sql);
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo "<a href='download-reviews.php?professorID=" . $row["professorID"] . "'>Download Reviews</a>";
-
-
-                echo "<li>" . $row["classCode"] . " - " . $row["semester"] . " " . $row["year"] . "</li>";
-            }
+            
+			//  while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				// Join the class table with the professor table using professorID as the key
+				$sql = "SELECT * FROM class WHERE professorID = '$row[professorID]'";
+				$class_result = $db->query($sql);
+				echo "<ul>";
+				while ($class_row = $class_result->fetch(PDO::FETCH_ASSOC)) {
+					echo "<li>" . $class_row["classCode"] . " - " . $class_row["semester"] . " " . $class_row["year"] . "</li>";
+				}
+				echo "</ul>";
+			// }
+			
 
 
             echo "</ul>";
@@ -87,17 +87,7 @@
         echo "<input type='text' name='search' placeholder='Search by name'>";
         echo "<input type='submit' value='Search'>";
         echo "</form>";
-        // if ($result->rowCount() > 0) {
-            // echo "<ul>";
-            // while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            //  echo "<li><a href='professor.php?id=" . $row["professorID"] . "'>" . $row["firstName"] . " " . $row["lastName"] . "</a></li>";
-            // }
-            // echo "</ul>";
-        // }
-    // }
-    // else {
-    //      echo "No professors found.";
-    //  }
+       
         echo "</div>";
        
 ?>
