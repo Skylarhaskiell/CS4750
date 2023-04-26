@@ -49,31 +49,36 @@
 
 
 			global $db;
-			$query1 = "SELECT avg(overall_rating) as RATE, avg(hours_assignment_per_week) as WEEKLY from rating natural join rankAbout natural join class where professorID = '$row[professorID]'";
+			$query1 = "SELECT avg(overall_rating), avg(hours_assignment_per_week), avg(hours_studying_per_week), avg(num_assignments) from rating natural join rankAbout natural join class where professorID = '$row[professorID]'";
 			$statement1 = $db->prepare($query1);
 			$statement1->execute();
 			$rating = $statement1->fetch();
 			$statement1->closeCursor();
 
-			if ($rating[0] > 0) {
+			if ($rating[0]) {
 				$prof_rating = $rating[0];
+				$weekly_hours = $rating[1];
+				$study_hours = $rating[2];
+				$num_assignments = $rating[3];
+
 			}
 			else{
 				$prof_rating = "No Ratings Yet";
+				$weekly_hours = "No Ratings Yet";
+				$study_hours = "No Ratings Yet";
+				$num_assignments ="No Ratings Yet";
 			}
 
-			if ($rating[1] > 0) {
-				$weekly_hours = $rating[1];
-			}
-			else{
-				$weekly_hours = "No Ratings Yet";
-			}
 
 
             echo "Instructor Rating: ";
 			echo $prof_rating;
 			echo "<br> <br> Average Hours Spent on Assignments Weekly: ";
 			echo $weekly_hours;
+			echo "<br> <br> Average Hours Spent on Studying Weekly: ";
+			echo $study_hours;
+			echo "<br> <br> Average Number of Assignments: ";
+			echo $num_assignments;
             echo "<div class='class-list'>";
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
@@ -85,7 +90,19 @@
 				$class_result = $db->query($sql);
 				echo "<ul>";
 				while ($class_row = $class_result->fetch(PDO::FETCH_ASSOC)) {
-					echo "<li>" . $class_row["classCode"] . " - " . $class_row["semester"] . " " . $class_row["year"] . "</li>";
+					$query_by_class = "SELECT avg(overall_rating) from rating natural join rankAbout natural join class where classID = $class_row[classID];";
+					$statement1 = $db->prepare($query_by_class);
+					$statement1->execute();
+					$class_rating = $statement1->fetch();
+					$statement1->closeCursor();
+
+					if ($class_rating[0]) {
+						$rating_by_class = $class_rating[0];
+					}
+					else{
+						$rating_by_class = "No Ratings Yet";
+					}
+					echo "<li>" . $class_row["classCode"] . " - $rating_by_class </li>";
 				}
 				echo "</ul>";
 			// }
