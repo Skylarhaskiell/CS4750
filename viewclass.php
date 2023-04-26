@@ -58,20 +58,36 @@
         echo "<p>Taught by " . $row["firstName"] . " " . $row["lastName"] . "</p>";
 
         $current_class = $row["classID"];
+    //      echo "<h3>Ratings:</h3>";
+    // echo "<p>Overall Rating: " . $row["overall_rating"] . "</p>";
+    // echo "<p>Hours Assignment per Week: " . $row["hours_assignment_per_week"] . "</p>";
+    // echo "<p>Hours Studying per Week: " . $row["hours_studying_per_week"] . "</p>";
+    // echo "<p>Number of Assignments: " . $row["num_assignments"] . "</p>";
+    
         // Get all comments for this class
         $sql = "SELECT * FROM class natural join professor natural join (comments natural join classComment) where classID = :classID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':classID', $current_class);
         $stmt->execute();
         $ratings_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $sql = "SELECT * FROM class natural join professor natural join (rating natural join rankAbout) where classID = :classID";
+        //$sql = "SELECT * FROM class natural join professor natural join (comments  natural join classComment) where classID = :classID";
+        
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':classID', $current_class);
+        $stmt->execute();
+        $class_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($ratings_result)) {
           echo "<div class='class-list'>";
-          echo "<          <div class='class-list'>
+          echo "<div class='class-list'>
           <h3>Comments and Ratings:</h3>";
           foreach ($ratings_result as $rating_row) {
             echo "Reviews:";
             echo "<p>" . $rating_row["content"] . "</p>";
+          }
+          foreach( $class_result as $comment_row){
+            echo "Comments:";
+            echo "<p>" . $comment_row["content"] . "</p>";
           }
           echo "</div>";
         } else {
