@@ -80,7 +80,7 @@ function selectAllFriends()
 function selectAllComments()
 {
 	global $db;
-	$query = "SELECT * from comments";
+	$query = "SELECT * from comments NATURAL JOIN studentComment NATURAL JOIN classComment NATURAL JOIN class";
 	//prepare
 	$statement = $db->prepare($query);
 	//execute

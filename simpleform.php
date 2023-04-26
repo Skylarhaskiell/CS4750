@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   {
     $class_info_to_update = getCommentByID($_POST['comment_to_update']);
     #var_dump($friend_info_to_update);
+    header("location:simpleform.php");
+
   }
   
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
@@ -30,18 +32,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     addStudentComment($_POST['studentID']);
     //$friends = selectAllFriends();
     $comments = selectAllComments();
+    header("location:simpleform.php");
+
   }
    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete"))
   {
     deleteComment($_POST['comment_to_delete']);
     //$friends = selectAllFriends();
     $comments = selectAllComments();
+    header("location:simpleform.php");
+
   }
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
   {
     updateComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
     //$friends = selectAllFriends();
     $comments = selectAllComments();
+    header("location:simpleform.php");
+
   }
 }
 
