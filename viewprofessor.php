@@ -46,7 +46,34 @@
             ($row = $result->fetch(PDO::FETCH_ASSOC));
             echo "<div class='professor-box'>";
             echo "<h2>" . $row["firstName"] . " " . $row["lastName"] . "</h2>";
-            echo "<p>Instructor Rating: " . $row["instructor_rating"] . "</p>";
+
+
+			global $db;
+			$query1 = "SELECT avg(overall_rating) as RATE, avg(hours_assignment_per_week) as WEEKLY from rating natural join rankAbout natural join class where professorID = '$row[professorID]'";
+			$statement1 = $db->prepare($query1);
+			$statement1->execute();
+			$rating = $statement1->fetch();
+			$statement1->closeCursor();
+
+			if ($rating[0] > 0) {
+				$prof_rating = $rating[0];
+			}
+			else{
+				$prof_rating = "No Ratings Yet";
+			}
+
+			if ($rating[1] > 0) {
+				$weekly_hours = $rating[1];
+			}
+			else{
+				$weekly_hours = "No Ratings Yet";
+			}
+
+
+            echo "Instructor Rating: ";
+			echo $prof_rating;
+			echo "<br> <br> Average Hours Spent on Assignments Weekly: ";
+			echo $weekly_hours;
             echo "<div class='class-list'>";
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
