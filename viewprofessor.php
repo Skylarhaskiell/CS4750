@@ -46,7 +46,23 @@
             ($row = $result->fetch(PDO::FETCH_ASSOC));
             echo "<div class='professor-box'>";
             echo "<h2>" . $row["firstName"] . " " . $row["lastName"] . "</h2>";
+
+
+			global $db;
+			$query1 = "SELECT avg(overall_rating) as RATE from rating natural join rankAbout natural join class where professorID = '$row[professorID]'";
+			$statement1 = $db->prepare($query1);
+			$statement1->execute();
+			$rating = $statement1->fetch();
+			$statement1->closeCursor();
+
+			if ($rating[0] > 0) {
+				$prof_rating = $rating[0];
+			}
+			else{
+				$prof_rating = "No Ratings Yet";
+			}
             echo "<p>Instructor Rating: " . $row["instructor_rating"] . "</p>";
+			echo $prof_rating;
             echo "<div class='class-list'>";
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
