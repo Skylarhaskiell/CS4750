@@ -62,13 +62,6 @@
   
   <!-- for local -->
   <!-- <script src="your-js-file.js"></script> -->  
-  
-
-  <div class="search-container">
-    <form action="/action_page.php">
-      <input class="form-control" type="text" placeholder="Search.." name="search" style = 'width: 80%;'>
-    </form>
-  </div>
 
 
 
