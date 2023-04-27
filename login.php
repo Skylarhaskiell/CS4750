@@ -14,12 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM login WHERE username = '$username' AND userPassword = '$password'";
     $result = $db->query($sql);
 
+	session_start();
+	$_SESSION['user'] = $username;
 
     if ($result->rowCount() > 0) {
         // User exists, show success message
+		
+		$_SESSION['logged_in'] = true;
+		$_SESSION['user'] = $result['studentID'];
         echo "Login successful!";
 		# the current user that is logged in
-		$user = getStudentID($username, $pwd);
+		#$user = getStudentID($username, $pwd);
         header('Location: index.php');
         exit();
         

@@ -1,4 +1,5 @@
 <?php include 'header.php';
+session_start();
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -20,7 +21,8 @@
   <meta name="description" content="include some description about your page">  
     
   <title>Home</title>
-  <?php echo $user?>
+  <?php echo $_SESSION['user']?>
+  <?php echo $_SESSION['row']?>
   
   <!-- 3. link bootstrap -->
   <!-- if you choose to use CDN for CSS bootstrap -->  
