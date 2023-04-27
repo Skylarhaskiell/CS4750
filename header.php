@@ -2,6 +2,13 @@
 {% load static %}
 {% bootstrap_css %}
 {% bootstrap_javascript %} -->
+
+<?php 
+session_start();
+$studentID = $_SESSION['studentID'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,18 +45,27 @@
               <li class="nav-item">
                 <a class="nav-link" href="viewprofessor.php">Reviews By Professor</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-              </li>
+              </li> -->
             </ul>
             <div class="collapse navbar-collapse justify-content-end">
               <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="login.php">Login</a>
+              <?php if (isset($_SESSION['studentID'])) : ?>
+                <span class="navbar-text">
+                You are logged in as: <?php echo $studentID; ?>
+              </span>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+                
               </li>
+              <?php else : ?>
+                <li class="nav-item">
+              <a class="nav-link" href="login.php">Login</a>
               <li class="nav-item">
                 <a class="nav-link" href="create_user.php">Sign Up</a>
               </li>
+              <?php endif; ?>
             </ul>
           </div>
           </div>
