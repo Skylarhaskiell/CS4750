@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->rowCount() > 0) {
         // User exists, show success message
         echo "Login successful!";
-        header('Location: index.html');
+        header('Location: index.php');
         exit();
         
     } else {
