@@ -95,12 +95,7 @@
         echo "<div class = 'name-box'> <h2>" . $row["classCode"] . " with " . $row["firstName"] . " " . $row["lastName"] . "</h2> </div>";
 
         $current_class = $row["classID"];
-    //      echo "<h3>Ratings:</h3>";
-    // echo "<p>Overall Rating: " . $row["overall_rating"] . "</p>";
-    // echo "<p>Hours Assignment per Week: " . $row["hours_assignment_per_week"] . "</p>";
-    // echo "<p>Hours Studying per Week: " . $row["hours_studying_per_week"] . "</p>";
-    // echo "<p>Number of Assignments: " . $row["num_assignments"] . "</p>";
-    
+  
         // Get all comments for this class
         $sql = "SELECT * FROM class natural join professor natural join (comments natural join classComment) where classID = :classID";
         $stmt = $db->prepare($sql);
@@ -115,8 +110,8 @@
         $stmt->execute();
         $rating_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        echo "<h4 style='font-weight:bolder;'>Reviews:</h4>";
-        if ($comment_result[0]) {
+        echo "<h4 style='font-weight:bolder;'>Comments:</h4>";
+        if ($comment_result[0]?? null) {
           foreach ($comment_result as $comment_row) {
             echo $comment_row["content"] . "<br>";
             echo $comment_row['date_posted'] . "<br><br>";
@@ -127,7 +122,7 @@
           echo "<p>No comments for this class yet.</p>";
         }
         echo "<h4 style='font-weight:bolder;'>Ratings:</h4>";
-        if ($rating_result[0]) {
+        if ($rating_result[0]?? null) {
           foreach ($rating_result as $rating_row) {
             echo "Overall Rating: " . $rating_row["overall_rating"] . "<br>";
             echo "Weekly Hours on Assignments: " . $rating_row["hours_assignment_per_week"] . "<br>";
