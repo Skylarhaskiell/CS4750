@@ -66,11 +66,12 @@ function addRankAbout($classID) {
 }
 
 # function to show the classes and their ratings
-function selectAllRatings()
+function selectAllRatings($studentID)
 {
     global $db;
-    $query = "SELECT classCode, firstName, lastName, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM professor NATURAL JOIN class NATURAL JOIN rankAbout NATURAL JOIN rating";
+    $query = "SELECT classCode, firstName, lastName, studentID, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM professor NATURAL JOIN class NATURAL JOIN rankAbout NATURAL JOIN rating NATURAL JOIN ranks WHERE studentID = :studentID";
     $statement = $db->prepare($query);
+    $statement->bindValue(':studentID', $studentID);
     $statement->execute();
     $results = $statement->fetchAll();
     $statement->closeCursor();

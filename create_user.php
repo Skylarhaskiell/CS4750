@@ -9,7 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get user input from form
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $password = sha1($password);
     $password2 = $_POST["password2"];
+    $password2 = sha1($password2);
     $studentID = $_POST["studentID"];
 
     // Check if the passwords match
