@@ -16,7 +16,7 @@
 </head>
 <body>
 	<h1>Add Student</h1>
-	<form action="index.html" method="post">
+	<form action="index.php" method="post">
 		<label for="studentID">Student ID:</label>
 		<input type="text" name="studentID" id="studentID"><br>
 		<label for="firstName">First Name:</label>

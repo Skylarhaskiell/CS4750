@@ -5,12 +5,14 @@ require("connect-db.php");
 require("rating-db.php");
 
 
-$ratings = selectAllRatings();
+
 //var_dump($ratings);
 // echo $professorID;
 session_start(); // Start the session
 
 $studentID = $_SESSION['studentID'];
+
+$ratings = selectAllRatings($studentID);
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -26,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     #add to rankAbout table
     addRankAbout($_POST['course']);
     #refresh ratings
-    $ratings = selectAllRatings();
+    $ratings = selectAllRatings($studentID);
     header("location:rating_simpleform.php");
 
   }
@@ -119,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <tr style="background-color:#B0B0B0">
     <th>Course        
     <th>Professor 
+    <th>Student ID  
     <th>Rating
     <th>Hours On Assignments/Week   
     <th>Hours Studying/Week 
@@ -129,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <tr>
      <td><?php echo $rating['classCode']; ?></td>
      <td><?php echo $rating['firstName'] . " " . $rating['lastName']; ?></td> 
+     <td><?php echo $rating['studentID']; ?></td>
      <td><?php echo $rating['overall_rating']; ?></td>    
      <td><?php echo $rating['hours_assignment_per_week']; ?></td>    
      <td><?php echo $rating['hours_studying_per_week']; ?></td>  

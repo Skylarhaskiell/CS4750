@@ -80,10 +80,11 @@ function selectAllFriends()
 function selectAllComments($studentID)
 {
 	global $db;
-	$query = "SELECT * from comments NATURAL JOIN studentComment  NATURAL JOIN classComment NATURAL JOIN class NATURAL JOIN professor ";
+	$query = "SELECT * from comments NATURAL JOIN studentComment  NATURAL JOIN classComment NATURAL JOIN class NATURAL JOIN professor WHERE studentID = :studentID";
 	//prepare
 	$statement = $db->prepare($query);
 	//execute
+	$statement->bindValue(":studentID", $studentID);
 	$statement->execute(); 
 	//retrieve
 	$results = $statement->fetchAll(); // fetch() will only retrieve the first row
