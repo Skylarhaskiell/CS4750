@@ -48,7 +48,7 @@
 </head>
 
 <body>
-  <?php echo $_SESSION['studentID'];?>
+
   
 <div class="container" >
   <h1 class = 'header'>Welcome to the Course Rating Page</h1>  
