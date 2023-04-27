@@ -16,8 +16,25 @@
     .title-box {
       background-color: #f28482;
       color: white;
-      padding: 10px;
+      padding: 40px;
       margin-bottom: 20px;
+      display: inline-block; 
+      vertical-align: top; 
+      display: inline-block; 
+      vertical-align: top; 
+      width: 120%; 
+      display: inline-block; 
+      vertical-align: top; 
+      padding: 30 px; 
+      text-align:center;
+      border-radius: 10px;
+      border-color: #f7ede2;
+      border-width: 5px;
+      border-style: solid;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
     }
     .class-list {
       margin-top: 20px;
@@ -41,6 +58,27 @@
   require("connect-db.php");
   global $db;
 
+    // Retrieve the list of classes for the dropdown
+    $sql = "SELECT DISTINCT classCode FROM class";
+    $stmt = $db->query($sql);
+    $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+    // Display the search form with dropdown menu
+    echo "<br>";
+    echo "<div class='container'>";
+    echo "<div class='title-box'><h1> Ratings by Class</h1></div>";
+    echo "<form action='' method='post'>";
+    echo "<select name='class' class='form-control' style = 'width: 300px; text-align:center;'>";
+    foreach ($classes as $class) {
+      echo '<option value="none" selected disabled hidden>      Select a Class       </option>';
+      echo "<option value='" . $class['classCode'] . "'>" . $class['classCode'] . "</option>";
+    }
+    echo "</select>";
+    echo "<input type='submit' value='Select' class='form-control'>";
+    echo "</form>";
+    echo "</div>";
+
+
   if (isset($_POST['class'])) {
     $selectedClass = $_POST['class'];
 
@@ -54,7 +92,7 @@
     if (!empty($result)) {
       foreach ($result as $row) {
         echo "<div class='professor-box'>";
-        echo "<h2>" . $row["classCode"] . " with " . $row["firstName"] . " " . $row["lastName"] . "</h2>";
+        echo "<div class = 'name-box'> <h2>" . $row["classCode"] . " with " . $row["firstName"] . " " . $row["lastName"] . "</h2> </div>";
 
         $current_class = $row["classID"];
     //      echo "<h3>Ratings:</h3>";
@@ -77,7 +115,7 @@
         $stmt->execute();
         $rating_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        echo "<h4>Reviews:</h4>";
+        echo "<h4 style='font-weight:bolder;'>Reviews:</h4>";
         if ($comment_result[0]) {
           foreach ($comment_result as $comment_row) {
             echo $comment_row["content"] . "<br>";
@@ -88,7 +126,7 @@
         else {
           echo "<p>No comments for this class yet.</p>";
         }
-        echo "<h4>Ratings:</h4>";
+        echo "<h4 style='font-weight:bolder;'>Ratings:</h4>";
         if ($rating_result[0]) {
           foreach ($rating_result as $rating_row) {
             echo "Overall Rating: " . $rating_row["overall_rating"] . "<br>";
@@ -109,24 +147,50 @@
     }
   }
 
-  // Retrieve the list of classes for the dropdown
-  $sql = "SELECT DISTINCT classCode FROM class";
-  $stmt = $db->query($sql);
-  $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-  // Display the search form with dropdown menu
-  echo "<div class='container'>";
-  echo "<div class='title-box'><h2>Search for a class to see its ratings</h2></div>";
-  echo "<form action='' method='post'>";
-  echo "<select name='class'>";
-  foreach ($classes as $class) {
-    echo "<option value='" . $class['classCode'] . "'>" . $class['classCode'] . "</option>";
-  }
-  echo "</select>";
-  echo "<input type='submit' value='Select'>";
-  echo "</form>";
-  echo "</div>";
 ?>
 </body>
 </html>
 
+
+
+
+<style> 
+    .professor-box { 
+      display: inline-block; 
+      vertical-align: top; 
+      display: inline-block; 
+      vertical-align: top; 
+      width: 48%; 
+      display: inline-block; 
+      vertical-align: top; 
+      padding: 30 px; 
+      text-align:center;
+      border-radius: 10px;
+      border-color: #f7ede2;
+      border-width: 5px;
+      border-style: solid;
+      background-color: #f5cac3;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+  } 
+  .name-box { 
+      display: inline-block; 
+      vertical-align: top; 
+      display: inline-block; 
+      vertical-align: top; 
+      width: 70%; 
+      display: inline-block; 
+      vertical-align: top; 
+      padding: 30px; 
+      text-align:center;
+      border-radius: 10px;
+      border-color: #f7ede2;
+      border-width: 5px;
+      border-style: solid;
+      background-color: white;
+  } 
+  
+</style> 
