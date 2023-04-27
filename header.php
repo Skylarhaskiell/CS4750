@@ -33,12 +33,21 @@ $studentID = $_SESSION['studentID'];
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="index.php">Home</a>
               </li>
+              <?php if (isset($_SESSION['studentID'])) : ?>
               <li class="nav-item">
                 <a class="nav-link" href="rating_simpleform.php">Add Rating</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="simpleform.php">Add Comment</a>
               </li>
+              <?php else : ?>
+                <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Add Rating</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Add Comment</a>
+              </li>
+              <?php endif; ?>
               <li class="nav-item">
                 <a class="nav-link" href="viewclass.php">Reviews By Class</a>
               </li>
@@ -56,7 +65,7 @@ $studentID = $_SESSION['studentID'];
                 You are logged in as: <?php echo $studentID; ?>
               </span>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" href="logout.php">Logout</a>
                 
               </li>
               <?php else : ?>
