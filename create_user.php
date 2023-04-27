@@ -31,6 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = $db->query($sql);
             if ($result->rowCount() > 0) {
                 // Success message
+                session_start();
+    	        $sql = "SELECT studentID from login where username = '$username'";
+    	        $result = $db->query($sql);
+    	        $_SESSION['studentID'] = $result->fetchColumn();
                 echo "User created successfully!";
                 header('Location: student_details.php');
                 exit();

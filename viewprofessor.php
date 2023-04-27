@@ -89,6 +89,7 @@
 				$sql = "SELECT * FROM class WHERE professorID = '$row[professorID]'";
 				$class_result = $db->query($sql);
 				echo "<ul>";
+                
 				while ($class_row = $class_result->fetch(PDO::FETCH_ASSOC)) {
 					$query_by_class = "SELECT avg(overall_rating) from rating natural join rankAbout natural join class where classID = $class_row[classID];";
 					$statement1 = $db->prepare($query_by_class);

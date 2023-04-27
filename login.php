@@ -13,6 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->rowCount() > 0) {
         // User exists, show success message
+		session_start();
+    	$sql = "SELECT studentID from login where username = '$username'";
+    	$result = $db->query($sql);
+    	$_SESSION['studentID'] = $result->fetchColumn();
         echo "Login successful!";
         header('Location: index.php');
         exit();

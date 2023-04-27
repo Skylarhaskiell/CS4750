@@ -11,7 +11,15 @@ $comments = selectAllComments();
 //var_dump($friends);
 $friend_info_to_update = null;
 $class_info_to_update = null;
+session_start(); // Start the session
 
+// Access the global variable
+// $globalVariable = $_SESSION['global_variable'];
+
+// Use the global variable
+// echo $globalVariable;
+// session_start();
+$studentID = $_SESSION['studentID'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update"))
@@ -24,12 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
   {
+    
     // $classID = (int)getClassID($_POST['classID'], $professorID);
     // $classCode = ($_POST['classID']);
     $classCode = getClassCode($_POST['classID']);
-    createComment( $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
+    // createComment( $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
+    createComment( $studentID, $_POST['date_posted'], $_POST['content']);
     addclassComment(  $_POST['classID']);
-    addStudentComment($_POST['studentID']);
+    // addStudentComment($_POST['studentID']);
+    addStudentComment($studentID);
     //$friends = selectAllFriends();
     $comments = selectAllComments();
     header("location:simpleform.php");
@@ -79,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <body>
 <div class="container">
   <h1>Add Comment</h1>  
+  
 
   <form name="mainForm" action="simpleform.php" method="post">   
     <div class="row mb-3 mx-3">    
