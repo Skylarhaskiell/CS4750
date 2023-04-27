@@ -8,6 +8,9 @@ require("rating-db.php");
 $ratings = selectAllRatings();
 //var_dump($ratings);
 // echo $professorID;
+session_start(); // Start the session
+
+$studentID = $_SESSION['studentID'];
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -17,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     #add to rating table
     addRating($_POST['overall_rating'], $_POST['hours_per_week_assignments'], $_POST['hours_per_week_study'], $_POST['num_assignments']);
     #add to ranks table
-    addRanks($_POST['computingID']);
+    addRanks($studentID);
     # retrieving class ID
     $classID = (int)getClassID($_POST['course'], $professorID);
     #add to rankAbout table
@@ -62,10 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <div class="container">
   <h1>Add Course Rating</h1>  
   <form name="mainForm" action="rating_simpleform.php" method="post">  
-  <div class="row mb-3 mx-3">
+  <!-- <div class="row mb-3 mx-3">
     ComputingID:
     <input type="text" class="form-control" name="computingID" required />        
-  </div>
+  </div> -->
 
 
   <div class="row mb-3 mx-3"> 

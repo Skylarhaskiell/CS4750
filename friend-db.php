@@ -77,10 +77,10 @@ function selectAllFriends()
 	//return result
 	return $results;
 };
-function selectAllComments()
+function selectAllComments($studentID)
 {
 	global $db;
-	$query = "SELECT * from comments NATURAL JOIN studentComment NATURAL JOIN classComment NATURAL JOIN class NATURAL JOIN professor";
+	$query = "SELECT * from comments NATURAL JOIN studentComment  NATURAL JOIN classComment NATURAL JOIN class NATURAL JOIN professor ";
 	//prepare
 	$statement = $db->prepare($query);
 	//execute

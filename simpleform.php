@@ -4,7 +4,7 @@
 require("connect-db.php");
 require("friend-db.php");
 require("rating-db.php");
-$comments = selectAllComments();
+
 // echo $professorID;
 
 //$friends = selectAllFriends();
@@ -13,13 +13,8 @@ $friend_info_to_update = null;
 $class_info_to_update = null;
 session_start(); // Start the session
 
-// Access the global variable
-// $globalVariable = $_SESSION['global_variable'];
-
-// Use the global variable
-// echo $globalVariable;
-// session_start();
 $studentID = $_SESSION['studentID'];
+$comments = selectAllComments($studentID);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update"))
@@ -42,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // addStudentComment($_POST['studentID']);
     addStudentComment($studentID);
     //$friends = selectAllFriends();
-    $comments = selectAllComments();
+    $comments = selectAllComments($studentID);
     header("location:simpleform.php");
 
   }
@@ -50,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   {
     deleteComment($_POST['comment_to_delete']);
     //$friends = selectAllFriends();
-    $comments = selectAllComments();
+    $comments = selectAllComments($studentID);
     header("location:simpleform.php");
 
   }
@@ -93,12 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
 
   <form name="mainForm" action="simpleform.php" method="post">   
-    <div class="row mb-3 mx-3">    
+    <!-- <div class="row mb-3 mx-3">    
     studentID:
     <input type="text" class="form-control" name="studentID" required 
     value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['studentID'];?>"
     /> 
-    </div>
+    </div> -->
     <div class="row mb-3 mx-3"> 
     Course: 
     <select type="text" class="form-control" name = 'classID' required>
