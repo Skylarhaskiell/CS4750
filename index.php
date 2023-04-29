@@ -66,8 +66,8 @@
 
 
 
-  
-  <br>
+  <?php if (isset($_SESSION['studentID'])) : ?>
+      <br>
   <div class="div1" style="background-color: #f6bd60">
     <a class='text1' href="rating_simpleform.php">Add A Rating</a>
   </div> 
@@ -80,6 +80,16 @@
   <div class="div1" style="background-color: #f28482">
     <a class='text1' href = "viewprofessor.php"> Reviews by Professor</a>
   </div> 
+  <?php else : ?>
+    <div class="div2" style="background-color: #84a59d">
+    <a class='text1' href = "viewclass.php"> Reviews by Class</a>
+  </div> 
+  <div class="div2" style="background-color: #f28482">
+    <a class='text1' href = "viewprofessor.php"> Reviews by Professor</a>
+  </div> 
+  <?php endif; ?>
+
+
 
   <style> 
     .container { 
@@ -94,6 +104,21 @@
       display: inline-block; 
       vertical-align: top; 
       width: 20%; 
+      display: inline-block; 
+      vertical-align: top; 
+      padding: 30px; 
+      text-align:center;
+      border-radius: 10px;
+      border-color: #f7ede2;
+      border-width: 5px;
+      border-style: solid;
+  } 
+  .div2 { 
+      display: inline-block; 
+      vertical-align: top; 
+      display: inline-block; 
+      vertical-align: top; 
+      width: 40%; 
       display: inline-block; 
       vertical-align: top; 
       padding: 30px; 

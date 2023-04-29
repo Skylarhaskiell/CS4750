@@ -3,6 +3,7 @@
 <?php
 require("connect-db.php");
 require("rating-db.php");
+require('friend-db.php');
 
 
 
