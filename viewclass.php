@@ -19,12 +19,10 @@
       padding: 40px;
       margin-bottom: 20px;
       display: inline-block; 
-      vertical-align: top; 
       display: inline-block; 
       vertical-align: top; 
       width: 120%; 
       display: inline-block; 
-      vertical-align: top; 
       padding: 30 px; 
       text-align:center;
       border-radius: 10px;

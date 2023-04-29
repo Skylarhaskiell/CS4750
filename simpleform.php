@@ -127,10 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   </div> 
   <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add comment" title="click to insert comment"/> 
+  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add comment" title="click to insert comment" style='background-color:#f28482; stroke-width:0px;'/> 
 </div>
 <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-dark" name="actionBtn" value="Confirm update" title="click to confirm update"/> 
+  <input type="submit" class="btn btn-dark" name="actionBtn" value="Confirm update" title="click to confirm update" style='background-color:#919191;'/> 
 </div>
 </form> 
 
@@ -160,13 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td><?php echo $item['content']; ?></td>
      <td>
       <form action="simpleform.php" method="post">
-        <input type="submit" name="actionBtn" value="Update" class="btn btn-dark" />
+        <input type="submit" name="actionBtn" value="Update" class="btn btn-dark" style='background-color:#919191;'/>
         <input type="hidden" name="comment_to_update" value="<?php echo $item['commentID'];?>" />
       </form>
     </td>    
     <td>
       <form action="simpleform.php" method="post">
-        <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger" />
+        <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger" style='background-color:#f28482;'/>
         <input type="hidden" name="comment_to_delete" value="<?php echo $item['commentID'];?>" />
       </form>
     </td>                   

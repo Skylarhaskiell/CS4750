@@ -17,9 +17,26 @@
         .title-box {
             background-color: #f28482;
             color: white;
-            padding: 10px;
+            padding: 40px;
             margin-bottom: 20px;
-        }
+            display: inline-block; 
+            vertical-align: top; 
+            display: inline-block; 
+            vertical-align: top; 
+            width: 120%; 
+            display: inline-block; 
+            vertical-align: top; 
+            padding: 30 px; 
+            text-align:center;
+            border-radius: 10px;
+            border-color: #f7ede2;
+            border-width: 5px;
+            border-style: solid;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            }
         .class-list {
             margin-top: 20px;
             padding: 10px;
@@ -127,10 +144,11 @@
     // // Display the dropdown with the list of professors
     // if ($result->rowCount() > 0) {
         echo "<div class='container'>";
-        echo "<div class='title-box'><h2>Search for a professor to see their ratings</h2></div>";
+        echo '<br>';
+        echo "<div class='title-box'><h1>Ratings by Professor</h1></div>";
         echo "<form action='' method='post'>";
-        echo "<input type='text' name='search' placeholder='Search by name'>";
-        echo "<input type='submit' value='Search'>";
+        echo "<input type='text' name='search' placeholder='Search by name' style='width:500px;' class='form-control'>";
+        echo "<input type='submit' value='Search'  class='form-control'>";
         echo "</form>";
        
         echo "</div>";

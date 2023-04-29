@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <input type="number" class="form-control" name="num_assignments" min="0" required />        
   </div>
   <div class="row mb-3 mx-3">
-  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating">
+  <input type="submit" class="btn btn-primary" name="actionBtn" value="Add Rating" title="click to add rating" style='background-color:#f28482;'>
 </div>
 
 </form>  
