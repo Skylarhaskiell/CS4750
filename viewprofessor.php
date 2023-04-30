@@ -4,15 +4,31 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Professor List</title>
     <style>
+        .parent {
+            display:flex;
+
+        }
         .professor-box {
-            border: 1px solid black;
-            padding: 10px;
-            margin-bottom: 20px;
+            display: inline-block; 
+            width: 48%; 
+            vertical-align: middle; 
+            padding: 50px; 
+            text-align:center;
+            border-radius: 10px;
+            border-color: #f5cac3;
+            border-width: 5px;
+            border-style: solid;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            justify-content: center;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            
         }
         .title-box {
             background-color: #f28482;
@@ -38,9 +54,15 @@
             margin-bottom: 10px;
             }
         .class-list {
-            margin-top: 20px;
+            margin-top: 50px;
             padding: 10px;
-            border: 1px solid black;
+            vertical-align: center; 
+            padding: 30px; 
+            border-radius: 10px;
+            border-color: #f7ede2;
+            border-width: 5px;
+            border-style: solid;
+            background-color: white;
         }
     </style>
 </head>
@@ -61,6 +83,7 @@
 
         if ($result->rowCount() > 0) {
             ($row = $result->fetch(PDO::FETCH_ASSOC));
+            echo "<div class='parent'>";
             echo "<div class='professor-box'>";
             echo "<h2>" . $row["firstName"] . " " . $row["lastName"] . "</h2>";
 
@@ -96,7 +119,10 @@
 			echo $study_hours;
 			echo "<br> <br> Average Number of Assignments: ";
 			echo $num_assignments;
-            echo "<div class='class-list'>";
+            
+            echo "</div>";
+
+            echo "<div class='professor-box'>";
             echo "<h3>Classes Taught:</h3>";
             echo "<ul>";
             // Join the class table with the professor table using professorID as the key
@@ -128,12 +154,14 @@
 
 
             echo "</ul>";
-            echo "</div>";
-            echo "</div>";
+
         } else {
             echo "Professor not found.";
         }
     }
+    echo "</div>";
+    echo "</div>";
+
 
 
     // Query the database for all professors
@@ -152,6 +180,8 @@
         echo "</form>";
        
         echo "</div>";
+        echo "<div>";
+
        
 ?>
 <?php

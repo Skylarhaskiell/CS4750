@@ -92,6 +92,7 @@
         echo "<div class='professor-box'>";
         echo "<div class = 'name-box'> <h2>" . $row["classCode"] . " with " . $row["firstName"] . " " . $row["lastName"] . "</h2> </div>";
 
+
         $current_class = $row["classID"];
   
         // Get all comments for this class
@@ -101,13 +102,39 @@
         $stmt->execute();
         $comment_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+        // Get all ratings for class
         $sql = "SELECT * FROM class natural join professor natural join (rating natural join rankAbout) where classID = :classID";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':classID', $current_class);
         $stmt->execute();
         $rating_result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
+        // Get all average ratings for class
+        $sql = "SELECT AVG(overall_rating) FROM class natural join professor natural join (rating natural join rankAbout) where classID = :classID";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':classID', $current_class);
+        $stmt->execute();
+        $average_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo "<h4 style='font-weight:bolder;'>Overall Rating:</h4>";
+        if ($average_results?? null) {
+          foreach ($average_results as $average_row) {
+            $average_rating = $average_row["AVG(overall_rating)"];
+            echo $average_rating;
+          }
+        } 
+        else {
+          $average_rating = "No ratings for this class yet";
+        }
+
+        if($average_rating=='') {
+          $average_rating = "No ratings for this class yet!";
+          echo $average_rating;
+          echo "<br>";
+          echo "<a href='rating_simpleform.php'>Take this class? Add a Rating!</a>";
+        }
+
+
         echo "<h4 style='font-weight:bolder;'>Comments:</h4>";
         if ($comment_result[0]?? null) {
           foreach ($comment_result as $comment_row) {
@@ -122,7 +149,7 @@
         echo "<h4 style='font-weight:bolder;'>Ratings:</h4>";
         if ($rating_result[0]?? null) {
           foreach ($rating_result as $rating_row) {
-            echo "Overall Rating: " . $rating_row["overall_rating"] . "<br>";
+            echo "Rating: " . $rating_row["overall_rating"] . "<br>";
             echo "Weekly Hours on Assignments: " . $rating_row["hours_assignment_per_week"] . "<br>";
             echo "Weekly Hours Studying: " . $rating_row["hours_studying_per_week"] . "<br>";
             echo "Number of Assignments: " . $rating_row["num_assignments"] . "<br><br>";
