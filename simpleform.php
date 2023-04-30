@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $comments = selectAllComments($studentID);
     header("location:simpleform.php");
   }else if (!empty($_POST['actionBtn']) && $_POST['actionBtn'] == "Update") {
-    updateComment($_POST['commentID'],$studentID,$_POST['date_posted'], $_POST['updated_content']);
+    $comment_info = getCommentByID($_POST['commentID']);
+    updateComment($_POST['commentID'],$studentID,$comment_info[2], $_POST['updated_content']);
     $comments = selectAllComments($studentID);
     header("location:simpleform.php");
 }
