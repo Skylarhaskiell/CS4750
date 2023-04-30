@@ -15,6 +15,8 @@ $studentID = $_SESSION['studentID'];
 
 $ratings = selectAllRatings($studentID);
 
+$rating_to_delete = null;
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -32,6 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $ratings = selectAllRatings($studentID);
     header("location:rating_simpleform.php");
 
+  }
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")) {
+    $rating_to_delete = $_POST['rating_to_delete'];
+    deleteRating($rating_to_delete);
+    // deleteRankAbout($rating_to_delete);
+    // deleteRanks($rating_to_delete);
+    $ratings = selectAllRatings($studentID);
+    header("location:rating_simpleform.php");
   }
 
 }
@@ -127,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th>Hours On Assignments/Week   
     <th>Hours Studying/Week 
     <th>#Assignments 
+    <th>Delete? 
   </tr>
   </thead>
 <?php foreach ($ratings as $rating): ?>
@@ -137,7 +148,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td><?php echo $rating['overall_rating']; ?></td>    
      <td><?php echo $rating['hours_assignment_per_week']; ?></td>    
      <td><?php echo $rating['hours_studying_per_week']; ?></td>  
-     <td><?php echo $rating['num_assignments']; ?></td>                            
+     <td><?php echo $rating['num_assignments']; ?></td>     
+    <td>
+      <form action="rating_simpleform.php" method="post">
+        <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger" style='background-color:#f28482;'/>
+        <input type="hidden" name="rating_to_delete" value="<?php echo $rating['rankID'];?>" />
+      </form>
+    </td> 
   </tr>
 <?php endforeach; ?>
 </table>
