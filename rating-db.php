@@ -69,7 +69,7 @@ function addRankAbout($classID) {
 function selectAllRatings($studentID)
 {
     global $db;
-    $query = "SELECT classCode, firstName, lastName, studentID, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM professor NATURAL JOIN class NATURAL JOIN rankAbout NATURAL JOIN rating NATURAL JOIN ranks WHERE studentID = :studentID";
+    $query = "SELECT rankID, classCode, firstName, lastName, studentID, overall_rating, hours_assignment_per_week, hours_studying_per_week, num_assignments FROM professor NATURAL JOIN class NATURAL JOIN rankAbout NATURAL JOIN rating NATURAL JOIN ranks WHERE studentID = :studentID";
     $statement = $db->prepare($query);
     $statement->bindValue(':studentID', $studentID);
     $statement->execute();
@@ -77,6 +77,63 @@ function selectAllRatings($studentID)
     $statement->closeCursor();
     return $results;
 }
+
+# function to delete a rating that you created
+function deleteRating($ratingToDelete) {
+    global $db;
+    $query = "DELETE from rating where rankID = :ratingToDelete";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':ratingToDelete', $ratingToDelete);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+# function to delete rating from rankAbout
+function deleteRankAbout($rankToDelete) {
+    global $db;
+    $query = "DELETE from rankAbout where rankID = :rankToDelete";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':rankToDelete', $rankToDelete);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+# function to delete rating from ranks
+function deleteRanks($ranksToDelete) {
+    global $db;
+    $query = "DELETE from ranks where rankID = :ranksToDelete";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':ranksToDelete', $ranksToDelete);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+# function used in update
+// function getRankById($rankID) {
+//     global $db;
+//     $query = "select * from rating where rankID = :rankID";
+//     $statement = $db->prepare($query);
+//     $statement->bindValue(':rankID', $rankID);
+//     $statement->execute();
+//     $result = $statement->fetch();
+//     $statement->closeCursor();
+//     return $result;
+// }
+
+// # updating ratings function
+
+// function updateRating($overall_rating, $hours_assignment_per_week, $hours_studying_per_week, $num_assignments, $rankID) {
+//     global $db;
+//     $query = "update rating set overall_rating = :overall_rating, hours_assignment_per_week = :hours_assignment_per_week, hours_studying_per_week = :hours_studying_per_week, num_assignments = :num_assignments WHERE rankID = :rankID";
+//     $statement = $db->prepare($query);
+//     $statement->bindValue(':overall_rating', $overall_rating);
+//     $statement->bindValue(':hours_assignment_per_week', $hours_assignment_per_week);
+//     $statement->bindValue(':hours_studying_per_week', $hours_studying_per_week);
+//     $statement->bindValue(':num_assignments', $num_assignments);
+//     $statement->bindValue(':rankID', $rankID);
+//     $statement->execute();
+//     $statement->closeCursor();
+// }
 
 # function to select all classCode and use it in dropdown menu
 
