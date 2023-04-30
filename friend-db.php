@@ -77,6 +77,25 @@ function selectAllFriends()
 	//return result
 	return $results;
 };
+function checkClasses ()
+{
+	global $db;
+	$query = "GRANT ALL PRIVILEGES ON classes .* TO administrator";
+	$statement = $db -> prepare($query);
+	$statement -> execute();
+	$query = "Create assertion check_class_code check ( not exists ( select * from classCode cc left join class c on cc. classID = c.classID and cc.classCode = c.classCode where c.classID is null))";
+	$statement = $db -> prepare ($query);
+	$statement -> exectute();
+	$statement->closeCursor();
+	
+}
+function updateCodes(){
+	global $db;
+	$query = "create procedure update_class_code( in in_classID int, in in_classCode varchar (255)) begin update class set classCode = in_classCode where classID = in_classID; update classCode set classCode = in_classCode where classId = in_classID; end";
+	$statement = $db -> prepare ($query);
+	$statement -> exectute();
+	$statement->closeCursor();
+}
 function selectAllComments($studentID)
 {
 	global $db;
@@ -137,7 +156,7 @@ function getFriendByName($name)
 function getCommentByID($commentID)
 {
 	global $db;
-	$query = "select * from comments where commentID=:commentID";
+	$query = "SELECT * from comments where commentID=:commentID";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':commentID', $commentID);
 	$statement->execute(); 

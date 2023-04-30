@@ -17,13 +17,13 @@ $studentID = $_SESSION['studentID'];
 $comments = selectAllComments($studentID);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update"))
-  {
-    $class_info_to_update = getCommentByID($_POST['comment_to_update']);
-    #var_dump($friend_info_to_update);
+  if (!empty($_POST['actionBtn']) && $_POST['actionBtn'] == "Update") {
+    $commentID = $_POST['comment_to_update'];
+    $class_info_to_update = getCommentByID($commentID);
     header("location:simpleform.php");
-
+    exit();
   }
+  
   
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add comment"))
   {
@@ -49,13 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     header("location:simpleform.php");
 
   }
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
-  {
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update")) {
     updateComment($_POST['commentID'], $_POST['studentID'], $_POST['date_posted'], $_POST['content']);
-    //$friends = selectAllFriends();
-    $comments = selectAllComments();
+    $comments = selectAllComments($studentID);
     header("location:simpleform.php");
-
+    exit();
   }
 }
 
@@ -88,17 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   
 
   <form name="mainForm" action="simpleform.php" method="post">   
-    <!-- <div class="row mb-3 mx-3">    
-    studentID:
-    <input type="text" class="form-control" name="studentID" required 
-    value="<?php if ($class_info_to_update !=null) echo $class_info_to_update['studentID'];?>"
-    /> 
-    </div> -->
+    
     <div class="row mb-3 mx-3"> 
     Course: 
     <select type="text" class="form-control" name = 'classID' required>
+      
       <option> SELECT COURSE </option>
       <?php 
+        
         $connection = mysqli_connect("mysql01.cs.virginia.edu","smw6ure","CS4750!","smw6ure_c");
         $sql = mysqli_query($connection, "SELECT classID, classCode, firstName, lastName, professorID from class NATURAL JOIN professor ORDER BY classCode");
         while ($row = $sql->fetch_assoc()){
@@ -108,6 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
           else{
             echo "<option value='" . $row['classID'] . "'>" . $row['classCode']. " - Unknown Professor" ."</option>";
           }
+        }
+        if ($class_info_to_update != null) {
+          $selectedCourseID = $class_info_to_update['classID'];
+          $selectedContent = $class_info_to_update['content'];
+          echo "<script>document.mainForm.classID.value = '$selectedCourseID';</script>";
         }
       ?>
   </select>
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <th>Delete?</th>
   </tr>
   </thead>
-<?php foreach ($comments as $item): ?>
+  <?php foreach ($comments as $item): ?>
   <tr>
      <td><?php echo $item['classCode'] ; ?></td>
      <td><?php echo $item['firstName']. ' ' . $item['lastName'] ?></td>
@@ -160,8 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td><?php echo $item['content']; ?></td>
      <td>
       <form action="simpleform.php" method="post">
-        <input type="submit" name="actionBtn" value="Update" class="btn btn-dark" style='background-color:#919191;'/>
-        <input type="hidden" name="comment_to_update" value="<?php echo $item['commentID'];?>" />
+        <?php if ($class_info_to_update != null && $class_info_to_update['commentID'] == $item['commentID']): ?>
+          <input type="hidden" name="classID" value="<?php echo $class_info_to_update['classID']; ?>" />
+          <input type="hidden" name="content" value="<?php echo $class_info_to_update['content']; ?>" />
+        <?php else: ?>
+          <input type="submit" name="actionBtn" value="Update" class="btn btn-dark" style='background-color:#919191;'/>
+          <input type="hidden" name="comment_to_update" value="<?php echo $item['commentID'];?>" />
+        <?php endif; ?>
       </form>
     </td>    
     <td>
@@ -172,6 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     </td>                   
   </tr>
 <?php endforeach; ?>
+
 </table>
 </div>   
 </body>
