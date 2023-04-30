@@ -3154,6 +3154,14 @@ VALUES
 ('CS9999', 'Spring', 2023, 12545)
 ;
 
+
+Create trigger check_rating 
+before insert or update on rating for each 
+row begin if new.overall_rating < 1 or new.overall_rating > 5 
+then signal sqlstate ‘45000’ 
+set message_text = "overall rating must be between 1 and 5";
+
+
 INSERT INTO classCode (classID, classCode) SELECT classID, classCode FROM class;
 INSERT INTO classSemester (classID, semester)
 SELECT classID, semester
